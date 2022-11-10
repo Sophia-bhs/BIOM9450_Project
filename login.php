@@ -16,7 +16,7 @@
         $name = $_POST['name'];
         // Check if practitioner login info correct
         // $sql = "";
-        // $query = mysqli_query($conn, $sql);
+        // $query = odbc_exec($conn, $sql);
         // if ($query) {
         //     echo 'Entry Successful';
         // } else {
