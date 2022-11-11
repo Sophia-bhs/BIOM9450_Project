@@ -17,11 +17,11 @@
         
         <form action="login.php" method="POST">
             <div class="container">
-                <label><b>Email</b></lable>
+                <label><b>Email</b></label>
                 <input type="text" placeholder="Enter Email" name="email" id="email" required/>
                 <!-- <label>Name</lable> <br>
                 <input type="text" name="name" id="name" required/> <br> <br> -->
-                <label><b>Password</b></lable>
+                <label><b>Password</b></label>
                 <input type="text" placeholder="Enter Password" name="password" id="password" required/>
 
                 <button type="submit" name="submit" id="submit"/>Login</button>
