@@ -11,9 +11,10 @@
     //     odbc_close($conn);
     //     exit("Connection Failed: ".odbc_errormsg());
     // }
-        
-    if (isset($_POST['name'])) {
-        $name = $_POST['name'];
+    // Check if email exists
+    if (isset($_POST['email'])) {
+        $email = $_POST['email'];
+        // echo $email;
         // Check if practitioner login info correct
         // $sql = "";
         // $query = odbc_exec($conn, $sql);
@@ -22,9 +23,9 @@
         // } else {
         //     echo 'Error Occurred';
         // }
-    }
-
-    odbc_close($conn);
+    } 
+    // Check if password correct for existing email
+    // odbc_close($conn);
 
     // if valid login, lead to main page
     header("Location: main.php");

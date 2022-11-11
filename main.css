@@ -17,6 +17,7 @@ p {
 ul li {
 	padding-right: 10px;
 	line-height: 1.6;
+	list-style-type: none;
 }
 
 h3 {
@@ -37,29 +38,12 @@ div#header h1 {
 	color: #292929;
 }
 
-div#extra {
-	background: #147FA9;
-	position: static;
-	float: left;
-    clear: left;
-    width: 200px;
-}
-
 div#navigation {
 	background: #7cb71c;
 	position: static;
 	float: left;
-	width: 200px;
-}
-
-div#wrapper {
-	float: right;
 	width: 100%;
-	margin-left: -200px;
-}
-
-div#content {
-	margin-left: 200px;;
+	padding: 20px;
 }
 
 table, th, td {
@@ -75,7 +59,7 @@ div#footer {
 	width: 100%;
 	background: #42444e;
 	color: #fff;
-	position: static;
+	position: fixed;
 }
 
 div#footer p {
