@@ -1,22 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset = "UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practitioner Login</title>
-</head>
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Major Project Login Webpage</title>
+        <link href="login_layout.css" rel="stylesheet" type="text/css">
+	</head>
 
-<h1> Medication and Diet Regime Management System </h1>
-<body>
-    <div><h2>Login</h2></div>
-    <form action="login.php" method="POST">
-        <label>Email</lable> <br>
-        <input type="text" name="email" id="email" required/> <br> <br>
-        <!-- <label>Name</lable> <br>
-        <input type="text" name="name" id="name" required/> <br> <br> -->
-        <label>Password</lable> <br>
-        <input type="text" name="password" id="password" required/> <br> <br>
-
-        <input type="submit" name="submit" id="submit"/>
-</body>
+    <center>
+        <body bgcolor="#E7FBFC">
+            <h1>
+                Practitioner Login
+            </h1>
+            <form action="login.php" method="POST">
+                <div class="container">
+                  <label for="email"><b>email</b></label>
+                  <input type="text" placeholder="Enter Email" name="email" required>
+              
+                  <label for="password"><b>Password</b></label>
+                  <input type="password" placeholder="Enter Password" name="password" required>
+                      
+                  <button type="submit" name="submit" value="Submit">Login</button>
+                </div>
+              </form>
+        </body>
+    </center>
 </html>
