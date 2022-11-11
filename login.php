@@ -28,5 +28,5 @@
     // odbc_close($conn);
 
     // if valid login, lead to main page
-    header("Location: main_layout.php");
+    header("Location: main.php");
 ?>

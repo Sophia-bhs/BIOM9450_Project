@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Major Project Login Webpage</title>
-        <link href="login_layout.css" rel="stylesheet" type="text/css">
+        <link href="login.css" rel="stylesheet" type="text/css">
 	</head>
 
     <center>
