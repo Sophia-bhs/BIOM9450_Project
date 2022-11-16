@@ -24,7 +24,7 @@
                 <label><b>Password</b></label>
                 <input type="text" placeholder="Enter Password" name="password" id="password" required/>
 
-                <button type="submit" name="submit" id="submit"/>Login</button>
+                <button type="submit" name="submit" id="submit">Login</button>
             </div>
         </form>
     </body>
