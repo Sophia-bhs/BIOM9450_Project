@@ -7,10 +7,8 @@
     </head>
     <body>
         <form id="chooseDate" action="selected_date.php" method="post">
-            <input type="date" name="selectedDate" min='2000-01-01' max='2025-12-31' onblur='chooseDate.submit()'>
-            <noscript>
-                <input type="submit" value="Submit">
-            </noscript>
+            <input type="date" name="selectedDate" min='2000-01-01' max='2025-12-31'>
+            <input type="submit" value="OK">
         </form>
     </body>
 </html>
