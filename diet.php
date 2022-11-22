@@ -28,7 +28,7 @@
             while($row = odbc_fetch_array($rs)) {
                 echo "<tr>";
                 echo "<td>" . $row['ID']. "</td>";
-                echo "<td>" . $row['DietName'] . "</td>";
+                echo "<td>" . '<a href="diet_details.php?id='.$row['ID'].'">'.$row['DietName'].'</a>' . "</td>";
                 echo "</tr>";
             }
             echo "</table>";
