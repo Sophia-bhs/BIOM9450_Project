@@ -4,7 +4,7 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practitioner Login</title>
-    <link href="login_layout.css" rel="stylesheet" type="text/css">
+    <link href="login.css" rel="stylesheet" type="text/css">
 </head>
 <center>
     <h1> Medication and Diet Regime Management System </h1>
@@ -24,7 +24,7 @@
                 <label><b>Password</b></label>
                 <input type="text" placeholder="Enter Password" name="password" id="password" required/>
 
-                <button type="submit" name="submit" id="submit"/>Login</button>
+                <button type="submit" name="submit" id="submit">Login</button>
             </div>
         </form>
     </body>
