@@ -8,9 +8,10 @@
     
     <?php
         $unformatedDate = $_POST['selectedDate'];
-        $year = explode("-", $unformatedDate)[0];
-        $month = explode("-", $unformatedDate)[1];
-        $day = explode("-", $unformatedDate)[2];
+        $exp = explode("-", $unformatedDate);
+        $year = $exp[0];
+        $month = $exp[1];
+        $day = $exp[2];
         $date = "$day/$month/$year";
         echo $date;
     ?>
