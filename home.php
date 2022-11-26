@@ -16,15 +16,15 @@
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
         }
-        $patientName = $patientID = "";
+        $patientName = $patientID = $chosenStatus = $medAdminID = $dietAdminID = "";
         $chosenRound = 1;
         $chosenDate = date('Y-m-d');
         session_start();
         $pracID = $_SESSION['PracID'];
         $pracName = $_SESSION['PracName'];
-        
+ 
         // Input fields validation  
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {  
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {  
             $patientName = $_POST["patientName"];  
             $chosenDate = $_POST["selectedDate"];
             $chosenRound = $_POST["roundNumber"];
@@ -33,7 +33,20 @@
             while ($row = odbc_fetch_array($rs)) {
                 $patientID = $row['ID'];
             }
-        }  
+            $_SESSION['patientName'] = $patientName;
+            $_SESSION['selectedDate'] = $chosenDate;
+            $_SESSION['roundNumber'] = $chosenRound;
+            $_SESSION['patientID'] = $patientID;
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['medEdit'])) {
+            $patientName = $_SESSION["patientName"];  
+            $chosenDate = $_SESSION["selectedDate"];
+            $chosenRound = $_SESSION["roundNumber"];
+            $patientID = $_SESSION["patientID"];
+            $medAdminID = $_POST["medAdminID"];  
+            $chosenStatus = $_POST["medStatus"];  
+            echo $medAdminID;
+            echo $chosenStatus;
+        }
     ?>   
     <div id="wrapper">
         <div id="filter">
@@ -66,25 +79,32 @@
                     <option value="1" <?php if ($chosenRound=="1") echo "selected";?>>1</option>
                     <option value="2" <?php if ($chosenRound=="2") echo "selected";?>>2</option>
                     <option value="3" <?php if ($chosenRound=="3") echo "selected";?>>3</option> 
-                    <!-- convert string to number -->
                 </select>
-                <input type="submit" name="submit" value="OK">
+                <input type="submit" name="search" value="OK">
             </form>
         </div>
 
         
         <div id="content">
             <?php  
-                if(isset($_POST['submit'])) {  
+                if(isset($_POST['medEdit'])) {
+                    if (!$conn) {
+                        odbc_close($conn);
+                        exit("Connection Failed: ".odbc_errormsg());
+                    }
+                    // Update database with status
+                    $sql = "UPDATE MedAdministration
+                    SET PractitionerID = $pracID, Status = '$chosenStatus'
+                    WHERE ID = $medAdminID;";
+                    $rs  = odbc_exec($conn, $sql);
+                    echo odbc_errormsg($conn);
+                }
+                if(isset($_POST['search']) || isset($_POST['medEdit'])) {  
                     echo "<h2>Your Input:</h2>";  
-                    echo "patient Name: " .$patientName;  
-                    echo "<br>";  
-                    echo "chosenDate: " .$chosenDate;  
-                    echo "<br>";  
-                    echo "chosenRound: " .$chosenRound;  
-                    echo "<br>";  
-                    echo "practitionerID: " .$pracID;  
-                    echo "<br>"; 
+                    echo "patient Name: ".$patientName."<br>";  
+                    echo "chosenDate: ".$chosenDate."<br>";  
+                    echo "chosenRound: ".$chosenRound."<br>";   
+                    echo "practitionerID: " .$pracID."<br>";  
                     if (!$conn) {
                         odbc_close($conn);
                         exit("Connection Failed: ".odbc_errormsg());
@@ -95,10 +115,11 @@
                         WHERE PatientID = $patientID 
                         AND Round = $chosenRound AND MedDate = #$chosenDate#";
                     $rs  = odbc_exec($conn, $sql);
-                    echo odbc_errormsg($conn);
+
                     echo "<h2>Medication Administration:</h2>"; 
                     echo "<table border-collapse: collapse>
                     <tr>
+                    <th>ID</th>
                     <th>PatientID</th>
                     <th>Practitioner</th>
                     <th>MedID</th>
@@ -108,12 +129,31 @@
                     </tr>";
                     while($row = odbc_fetch_array($rs)) {
                         echo "<tr>";
+                        echo "<td>" . $row['ID'] . "</td>";
                         echo "<td>" . $row['PatientID'] . "</td>";
-                        echo "<td>" . $row['PractitionerID'] . "</td>";
+                        if (isset($row['PractitionerID'])) {
+                            echo "<td>" . $row['PractitionerID'] . "</td>";
+                        } else {
+                            echo "<td>-</td>";
+                        }
                         echo "<td>" . $row['MedID'] . "</td>";
                         echo "<td>" . $row['Round'] . "</td>";
                         echo "<td>" . $row['MedDate'] . "</td>";
-                        echo "<td>" . $row['Status'] . "</td>";
+                        if (isset($row['Status'])) {
+                            echo "<td>" . $row['Status'] . "</td>";
+                        } else {
+                            echo "<td>" . '<form id="chooseStatus" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
+                                <select name="medStatus" id="medStatus">
+                                    <option value="Accepted" selected>Accepted</option>
+                                    <option value="Ceased">Ceased</option>
+                                    <option value="Fasting">Fasting</option> 
+                                    <option value="No Stock">No Stock</option> 
+                                    <option value="Rejected">Rejected</option> 
+                                </select>
+                                <input type="hidden" name="medAdminID" value="' . $row['ID'] . '">
+                                <input type="submit" value="Edit" name="medEdit">
+                            </form>' . "</td>";
+                        }
                         echo "</tr>";
                     }
                     echo "</table>";
