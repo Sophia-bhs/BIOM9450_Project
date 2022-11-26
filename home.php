@@ -10,13 +10,16 @@
 
 <body>    
     <div id="wrapper">
-        <div id="content">
+        <div id="filter">
             <h1> Home </h1>    
-            <p>Please pick a date: </p>
             <form id="chooseDate" action="selected_date.php" method="post">
                 <input type="date" name="selectedDate" min='2000-01-01' max='2025-12-31'>
                 <input type="submit" value="OK">
             </form>
+        </div>
+
+        
+        <div id="content">
             <table>
                 <tr>
                     <th >Medication Name</th>

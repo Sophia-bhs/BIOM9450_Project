@@ -17,5 +17,11 @@ div#extra {
 	float: left;
     clear: left;
     width: 200px;
+	margin-top: 120px;
 	margin-bottom: 100px;
+}
+
+div#filter {
+	margin-bottom: 30px;
+	margin-left: 20px;
 }
