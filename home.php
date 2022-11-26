@@ -8,56 +8,127 @@
 </head>
 
 
-<body>    
+<body>
+    <?php  
+        // define variables to empty values and defalt values
+        $patientName = "";
+        $chosenRound = 1;
+        $chosenDate = date('Y-m-d');
+        // Practitioner from session????????
+        $practitionerID = 1;
+        //Input fields validation  
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {  
+            $patientName = $_POST["patientName"];  
+            $chosenDate = $_POST["selectedDate"];
+            $chosenRound = $_POST["roundNumber"];
+        }  
+    ?>   
     <div id="wrapper">
         <div id="filter">
             <h1> Home </h1>    
-            <form id="chooseDate" action="selected_date.php" method="post">
-                <input type="date" name="selectedDate" min='2000-01-01' max='2025-12-31'>
-                <input type="submit" value="OK">
+            <form id="chooseDate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <input type="date" name="selectedDate" min='2022-01-01' max='2025-12-31' value="<?php echo date('Y-m-d', strtotime($chosenDate)); ?>">
+                <!-- Patient name -->
+                <?php
+                    $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
+                    if (!$conn) {
+                        odbc_close($conn);
+                        exit("Connection Failed: ".odbc_errormsg());
+                    }
+                    
+                    $sql = "SELECT PatientName FROM Patient ORDER BY PatientName";
+                    $rs  = odbc_exec($conn, $sql);
+                ?>
+                <label for="patientName">Patient Name:</label>
+                <select name="patientName" id="patientName">
+                <?php 
+                    $firstPatient = true;
+                    while ($row = odbc_fetch_array($rs))
+                    {
+                        // bug!!!!!!!!!!!!
+                        if (isset($patientName) && $patientName == $row['PatientName']) {
+                            echo "<option value='".$row['PatientName']."' selected>".$row['PatientName']."</option>";
+                        } else if (!isset($patientName) && $firstPatient == true) {
+                            echo "<option value='".$row['PatientName']."' selected>".$row['PatientName']."</option>";
+                            $firstPatient = false;
+                        } else {
+                            echo "<option value='".$row['PatientName']."'>".$row['PatientName']."</option>";
+                        }
+                    }
+                ?>        
+                </select>
+                
+                <!-- Round number -->
+                <label for="roundNumber">Round Number:</label>
+                <select name="roundNumber" id="roundNumber">
+                    <option value="1" <?php if ($chosenRound=="1") echo "selected";?>>1</option>
+                    <option value="2" <?php if ($chosenRound=="2") echo "selected";?>>2</option>
+                    <option value="3" <?php if ($chosenRound=="3") echo "selected";?>>3</option> 
+                    <!-- convert string to number -->
+                </select>
+                <input type="submit" name="submit" value="OK">
             </form>
         </div>
 
         
         <div id="content">
-            <table>
-                <tr>
-                    <th >Medication Name</th>
-                    <th>Dosage</th>
+            <?php  
+                if(isset($_POST['submit'])) {  
+                    echo "<h3 color = #FF0001> <b>You have sucessfully registered.</b> </h3>";  
+                    echo "<h2>Your Input:</h2>";  
+                    echo "patient Name: " .$patientName;  
+                    echo "<br>";  
+                    echo "chosenDate: " .$chosenDate;  
+                    echo "<br>";  
+                    echo "chosenRound: " .$chosenRound;  
+                    echo "<br>";  
+                    echo "practitionerID: " .$practitionerID;  
+                    echo "<br>"; 
+                    if (!$conn) {
+                        odbc_close($conn);
+                        exit("Connection Failed: ".odbc_errormsg());
+                    }
+                    // find patient ID, format date, format round number, format practitioner number
+                    //Medication
+                    // $sql = "SELECT * FROM MedAdministration 
+                    //     WHERE PatientID = (SELECT ID FROM Patient WHERE PatientName = '$patientName') 
+                    //     AND MedDate = #$chosenDate# AND Round = $chosenRound";
+                    $sql = "SELECT * FROM MedAdministration 
+                        WHERE PatientID = (SELECT ID FROM Patient WHERE PatientName = '$patientName') 
+                        AND Round = $chosenRound AND MedDate = #$chosenDate#";
+                    $rs  = odbc_exec($conn, $sql);
+                    echo odbc_errormsg($conn);
+                    echo "<h2>Medication Administration:</h2>"; 
+                    echo "<table border-collapse: collapse>
+                    <tr>
+                    <th>PatientID</th>
+                    <th>Practitioner</th>
+                    <th>MedID</th>
                     <th>Round</th>
-                    <th>Date1</th>
-                    <th>Date2</th>
-                    <th>Date3</th>
-                    <th>Date4</th>
-                    <th>Date5</th>
-                    <th>Date6</th>
-                    <th>Date7</th>
-                </tr>
-                <tr>
-                    <td rowspan="2">BETALOC 50mg</td>
-                    <td>2.00</td>
-                    <td>11:00</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                </tr>
-                <tr>
-                    <td>2.00</td>
-                    <td>19:00</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    <td>Completed?, Nurse Initials, Time administered</td>
-                    </tr>
-                </tr>
-                </table>
+                    <th>Date</th>
+                    <th>Status</th>
+                    </tr>";
+                    while($row = odbc_fetch_array($rs)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['PatientID'] . "</td>";
+                        echo "<td>" . $row['PractitionerID'] . "</td>";
+                        echo "<td>" . $row['MedID'] . "</td>";
+                        echo "<td>" . $row['Round'] . "</td>";
+                        echo "<td>" . $row['MedDate'] . "</td>";
+                        echo "<td>" . $row['Status'] . "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                    //Diet
+                    $sql = "SELECT * FROM DietAdministration 
+                        WHERE PatientID = (SELECT PatientID FROM Patient WHERE PatientName = '$patientName') 
+                        AND PractitionerID = practitionerID AND DietDate = #$chosenDate# AND Round = $chosenRound";
+                    $rs  = odbc_exec($conn, $sql);
+ 
+                }  
+            ?>  
+            
+            
         </div>
     </div>
 
