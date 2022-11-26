@@ -9,6 +9,9 @@
     <body bgcolor="#E7FBFC">
 		<?php
 			session_start();
+			if($_SESSION['status']!="Active") {
+    			header("location:index.php");
+			}
 			$PracID = $_SESSION['PracID'];
 			$PracName = $_SESSION['PracName'];
 		?>
