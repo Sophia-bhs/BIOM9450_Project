@@ -7,7 +7,11 @@
 	</head>
 
     <body bgcolor="#E7FBFC">
-
+		<?php
+			session_start();
+			$PracID = $_SESSION['PracID'];
+			$PracName = $_SESSION['PracName'];
+		?>
 		<div id="header">
 			<h1>
 				Patient Med Administration
@@ -54,7 +58,9 @@
 
 		<div id="footer">
 			<p>
-				Contact Us
+			<?php
+			echo "Practitioner: $PracName";
+			?>
 			</p>
 		</div>
 
