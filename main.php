@@ -12,13 +12,13 @@
 			$PracID = $_SESSION['PracID'];
 			$PracName = $_SESSION['PracName'];
 		?>
-		<div id="header">
+		<div class="header" id="header">
 			<h1>
 				Patient Med Administration
 			</h1>
 		</div>
 
-		<div id="navigation">
+		<div class="tab" id="navigation">
 			<!-- <p><strong>Navigation Menu</strong></p> -->
 			<button class="tablinks" onclick="openTab(event, 'Home')" id="defaultOpen">Home</button>
 			<button class="tablinks" onclick="openTab(event, 'Medication')">Medication</button>
