@@ -11,7 +11,7 @@
 <body>
     <?php  
         // define variables to empty values and defalt values
-        $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
+        $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
         if (!$conn) {
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
@@ -19,7 +19,6 @@
         $patientName = $patientID = $chosenStatus = $medAdminID = $dietAdminID = "";
         $chosenRound = 1;
         $chosenDate = date('Y-m-d');
-        session_start();
         $pracID = $_SESSION['PracID'];
         $pracName = $_SESSION['PracName'];
  
