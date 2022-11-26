@@ -61,6 +61,7 @@
 			<?php
 			echo "Practitioner: $PracName";
 			?>
+			Click here to <a href="logout.php" tite="Logout">Logout.
 			</p>
 		</div>
 
