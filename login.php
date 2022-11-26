@@ -24,6 +24,12 @@
     $rsPsw=odbc_fetch_row($execPsw);
     // Check if email and password is correct
     if ($rsEmail && $rsPsw) {
+        // Starting session to store Pracitioner Info
+        session_start();
+        // Stores practitioner ID
+        $_SESSION['PracID']=odbc_result($execEmail,1);
+        // Stores practitioner Name
+        $_SESSION['PracName']=odbc_result($execEmail,2);
         odbc_close($conn);
         // if valid login, lead to main page
         header("Location: main.php");
@@ -37,4 +43,5 @@
             window.location = 'index.php';
         </script>";
     }
+
 ?>
