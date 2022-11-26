@@ -33,6 +33,7 @@
         // Then redirects back to login page
         echo "<script type='text/javascript'>
             alert('Incorrect Email and/or Password');
+            // Redirects back to login Page
             window.location = 'index.php';
         </script>";
     }
