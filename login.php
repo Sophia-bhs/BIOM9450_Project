@@ -14,16 +14,12 @@
     // Check if practitioner login info correct
     // SQL command to match Email
     $sqlEmailMatch="SELECT * FROM Practitioner WHERE Email = '".$email."'";
-    // SQL command to match Password
-    $sqlPswMatch="SELECT * FROM Practitioner WHERE StrComp(Practitioner.Password,'".$password."',0) = 0";
     // Execute sql commands
     $execEmail=odbc_exec($conn,$sqlEmailMatch);
-    $execPsw=odbc_exec($conn,$sqlPswMatch);
-    // Find number of rows if there are matching emails and password
+    // Find number of rows if there are matching email
     $rsEmail=odbc_fetch_row($execEmail);
-    $rsPsw=odbc_fetch_row($execPsw);
     // Check if email and password is correct
-    if ($rsEmail && $rsPsw) {
+    if ($rsEmail && odbc_result($execEmail,4) == $password) {
         // Starting session to store Pracitioner Info
         session_start();
         // Stores practitioner ID
@@ -35,7 +31,7 @@
         header("Location: main.php");
     }
     else {
-        // Create pop up saying incorrect email and/or password
+        // Create pop up saying incorrect email
         // Then redirects back to login page
         echo "<script type='text/javascript'>
             alert('Incorrect Email and/or Password');
