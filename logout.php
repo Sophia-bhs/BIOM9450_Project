@@ -2,8 +2,9 @@
 <html lang="en">
     <?php
         session_start();
-        unset($_SESSION["id"]);
-        unset($_SESSION["name"]);
+        unset($_SESSION["PracID"]);
+        unset($_SESSION['PracName']);
+        session_destroy();
         header("Location:index.php");
     ?>
 </html>
