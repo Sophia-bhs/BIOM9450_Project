@@ -22,6 +22,7 @@
     if ($rsEmail && odbc_result($execEmail,4) == $password) {
         // Starting session to store Pracitioner Info
         session_start();
+        $_SESSION['status']="Active";
         // Stores practitioner ID
         $_SESSION['PracID']=odbc_result($execEmail,1);
         // Stores practitioner Name
