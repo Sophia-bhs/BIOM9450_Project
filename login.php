@@ -1,32 +1,47 @@
 <?php
     if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['submit'])) {
-        // $email = $_POST['email'];
-        // $password = $_POST['password'];
-        // $name = $_POST['name'];
+        // Storing data entered into variables
+        $email = $_POST['email'];
+        $password = $_POST['password'];
     } else {
         exit("Request method error");
     }
-    // $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC);
-    // if (!$conn) {
-    //     odbc_close($conn);
-    //     exit("Connection Failed: ".odbc_errormsg());
-    // }
-    // Check if email exists
-    if (isset($_POST['email'])) {
-        $email = $_POST['email'];
-        // echo $email;
-        // Check if practitioner login info correct
-        // $sql = "";
-        // $query = odbc_exec($conn, $sql);
-        // if ($query) {
-        //     echo 'Entry Successful';
-        // } else {
-        //     echo 'Error Occurred';
-        // }
-    } 
-    // Check if password correct for existing email
-    // odbc_close($conn);
+    $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC);
+    if (!$conn) {
+        odbc_close($conn);
+        exit("Connection Failed: ".odbc_errormsg());
+    }
+    // Check if practitioner login info correct
+    // SQL command to match Email
+    $sqlEmailMatch="SELECT * FROM Practitioner WHERE Email = '".$email."'";
+    // SQL command to match Password
+    $sqlPswMatch="SELECT * FROM Practitioner WHERE StrComp(Practitioner.Password,'".$password."',0) = 0";
+    // Execute sql commands
+    $execEmail=odbc_exec($conn,$sqlEmailMatch);
+    $execPsw=odbc_exec($conn,$sqlPswMatch);
+    // Find number of rows if there are matching emails and password
+    $rsEmail=odbc_fetch_row($execEmail);
+    $rsPsw=odbc_fetch_row($execPsw);
+    // Check if email and password is correct
+    if ($rsEmail && $rsPsw) {
+        // Starting session to store Pracitioner Info
+        session_start();
+        // Stores practitioner ID
+        $_SESSION['PracID']=odbc_result($execEmail,1);
+        // Stores practitioner Name
+        $_SESSION['PracName']=odbc_result($execEmail,2);
+        odbc_close($conn);
+        // if valid login, lead to main page
+        header("Location: main.php");
+    }
+    else {
+        // Create pop up saying incorrect email and/or password
+        // Then redirects back to login page
+        echo "<script type='text/javascript'>
+            alert('Incorrect Email and/or Password');
+            // Redirects back to login Page
+            window.location = 'index.php';
+        </script>";
+    }
 
-    // if valid login, lead to main page
-    header("Location: main.php");
 ?>

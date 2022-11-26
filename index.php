@@ -22,7 +22,7 @@
                 <!-- <label>Name</lable> <br>
                 <input type="text" name="name" id="name" required/> <br> <br> -->
                 <label><b>Password</b></label>
-                <input type="text" placeholder="Enter Password" name="password" id="password" required/>
+                <input type="password" placeholder="Enter Password" name="password" id="password" required/>
 
                 <button type="submit" name="submit" id="submit">Login</button>
             </div>
