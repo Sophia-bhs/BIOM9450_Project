@@ -61,6 +61,7 @@ div#footer {
 	clear: both;
 	left: 0;
   	bottom: 0;
+	height: 5%;
 	width: 100%;
 	background: #42444e;
 	color: #fff;
@@ -68,9 +69,24 @@ div#footer {
 }
 
 div#footer p {
-	padding: 20px 10px;
+	padding: 10px 10px;
 }
 
+.PracName {
+    float: left;
+	padding-left: 20px;
+	padding-top: 0.75%;
+}
+
+.logout {
+    float:right;
+	padding-right: 20px;
+	padding-top: 0.75%;
+}
+
+a {
+	color: hotpink;
+}
 /* Style the tab */
 .tab {
 	overflow: hidden;

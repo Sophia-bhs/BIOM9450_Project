@@ -60,12 +60,14 @@
 		</div>
 
 		<div id="footer">
-			<p>
-			<?php
-			echo "Practitioner: $PracName";
-			?>
-			Click here to <a href="logout.php" tite="Logout">Logout.
-			</p>
+			<div class="PracName">
+				<?php
+					echo "Practitioner: $PracName";
+				?>
+			</div>
+			<div class="logout">
+				<a href="logout.php" title="Logout">Logout
+			</div>
 		</div>
 
 		<script>
