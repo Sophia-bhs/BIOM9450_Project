@@ -15,7 +15,7 @@
 			$PracID = $_SESSION['PracID'];
 			$PracName = $_SESSION['PracName'];
 		?>
-		<div class="header" id="header">
+		<div class="PatientMedAd" id="header">
 			<h1>
 				Patient Med Administration
 			</h1>
@@ -27,6 +27,7 @@
 			<button class="tablinks" onclick="openTab(event, 'Medication')">Medication</button>
 			<button class="tablinks" onclick="openTab(event, 'Diet')">Diet</button>
 			<button class="tablinks" onclick="openTab(event, 'Patients')">Patients</button>
+			<button class="tablinks" onclick="openTab(event, 'Summary')">Summary</button>
 
 			<!-- <ul>
 				<li>Home</li>
@@ -59,6 +60,12 @@
 			?>
 		</div>
 
+		<div id="Summary" class="tabcontent">
+			<?php
+				include('summary.php');
+			?>
+		</div>
+
 		<div id="footer">
 			<div class="PracName">
 				<?php
@@ -66,7 +73,7 @@
 				?>
 			</div>
 			<div class="logout">
-				<a href="logout.php" title="Logout">Logout
+				<a class="logout" href="logout.php" title="Logout">Logout
 			</div>
 		</div>
 

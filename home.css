@@ -13,10 +13,9 @@ div#content {
 
 div#extra {
 	background: #147FA9;
-	position: static;
 	float: left;
     clear: left;
-    width: 200px;
+	padding: 0px 0px;
 	margin-top: 120px;
 	margin-bottom: 100px;
 }
