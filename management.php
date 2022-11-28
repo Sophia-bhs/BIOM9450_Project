@@ -37,26 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else if (!checkdate($parts[2],$parts[1],$parts[3])){
                 $dobErr = 'The date of birth is invalid. Please check that the month is between 1 and 12, and the day is valid for that month.';
             }
-        $dob =  new DateTime($dob);
-  
-        $minInterval = DateInterval::createFromDateString('18 years');
-        $maxInterval = DateInterval::createFromDateString('120 years');
-    
-        $minDobLimit = ( new DateTime() )->sub($minInterval);
-        $maxDobLimit = ( new DateTime() )->sub($maxInterval);
-    
-        if ($dob <= $maxDobLimit)
-        # Make sure that the user has a reasonable birth year
-        $dobErr = 'You must be alive to use this service.';
-        # Check whether the user is 18 years old.
-        elseif ($dob >= $minDobLimit) {
-        $dobErr = 'You must be 18 years of age to use this service.';
-        }
-    
-   }
+    }
 
     //Empty Field Validation  
-    if (emptyempty ($_POST["gender"])) {  
+    if (empty($_POST["gender"])) {  
             $genderErr = "Gender is required";  
     } else {  
             $gender = input_data($_POST["gender"]);  
@@ -100,15 +84,21 @@ function input_data($data) {
         echo "Name: " .$name;  
         echo "<br>";  
         echo "Gender: " .$gender;
-        $today = new DateTime();
-        $diff = $today->diff($dob);
-        $age = $diff->format('You are %Y years, %m months and %d days old.');
-        echo "Age : " .age;
+        echo "<br>"; 
+        echo "Date of Birth : " .$dob;
+         
+    // $sql = "INSERT INTO Patient (PatientName, Gender, DOB)
+	//	VALUES ('$name', '$gender', '$dob')";	
+    //    $rs = odbc_exec($conn,$sql);
+    //    echo odbc_errormsg($conn);
     } else {  
         echo "<h3> <b>You didn't filled up the form correctly.</b> </h3>";  
     }  
-    }  
+    } 
+
 ?>  
   
+
+
 </body>  
 </html>    
