@@ -27,13 +27,15 @@
 			<button class="tablinks" onclick="openTab(event, 'Medication')">Medication</button>
 			<button class="tablinks" onclick="openTab(event, 'Diet')">Diet</button>
 			<button class="tablinks" onclick="openTab(event, 'Patients')">Patients</button>
-			<button class="tablinks" onclick="openTab(event, 'Summary')">Summary</button>
+			<div class="dropdown">
+				<button class="tablinks">Summary</button>
+    			<div class="dropdown-content">
+					<a onclick="openTab(event, 'SummaryMedication')">Medication</a>
+					<a onclick="openTab(event, 'SummaryDiet')">Diet</a>
+				</div>
+  			</div> 
 
-			<!-- <ul>
-				<li>Home</li>
-				<li>Client List</li>
-				<li>Org Med Reports</li>
-			</ul> -->
+			
 		</div>
 		
 		<div id="Home" class="tabcontent">
@@ -60,9 +62,15 @@
 			?>
 		</div>
 
-		<div id="Summary" class="tabcontent">
+		<div id="SummaryMedication" class="tabcontent">
 			<?php
-				include('summary.php');
+				include('summary_med.php');
+			?>
+		</div>
+
+		<div id="SummaryDiet" class="tabcontent">
+			<?php
+				include('diet.php');
 			?>
 		</div>
 
