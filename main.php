@@ -9,6 +9,9 @@
     <body bgcolor="#E7FBFC">
 		<?php
 			session_start();
+			if($_SESSION['status']!="Active") {
+    			header("location:index.php");
+			}
 			$PracID = $_SESSION['PracID'];
 			$PracName = $_SESSION['PracName'];
 		?>
@@ -61,6 +64,7 @@
 			<?php
 			echo "Practitioner: $PracName";
 			?>
+			Click here to <a href="logout.php" tite="Logout">Logout.
 			</p>
 		</div>
 
