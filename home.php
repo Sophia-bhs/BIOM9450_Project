@@ -51,7 +51,7 @@
     ?>   
     <div id="wrapper">
         <div id="filter">
-            <h1> Home </h1>    
+            <h1> Home </h1> 
             <form id="chooseDate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <input type="date" name="selectedDate" min='2022-01-01' max='2025-12-31' value="<?php echo date('Y-m-d', strtotime($chosenDate)); ?>">
                 <!-- Patient name -->
@@ -115,11 +115,6 @@
                     echo odbc_errormsg($conn);
                 }
                 if(isset($_POST['search']) || isset($_POST['medEdit']) || isset($_POST['dietEdit'])) {  
-                    echo "<h2>Your Input:</h2>";  
-                    echo "patient Name: ".$patientName."<br>";  
-                    echo "chosenDate: ".$chosenDate."<br>";  
-                    echo "chosenRound: ".$chosenRound."<br>";   
-                    echo "practitionerID: " .$pracID."<br>";  
                     if (!$conn) {
                         odbc_close($conn);
                         exit("Connection Failed: ".odbc_errormsg());
@@ -152,7 +147,7 @@
                         }
                         echo "<td>" . $row['MedID'] . "</td>";
                         echo "<td>" . $row['Round'] . "</td>";
-                        echo "<td>" . $row['MedDate'] . "</td>";
+                        echo "<td>" . date('Y-m-d', strtotime($row['MedDate'])) . "</td>";
                         if (isset($row['Status'])) {
                             echo "<td>" . $row['Status'] . "</td>";
                         } else {
@@ -200,7 +195,7 @@
                         }
                         echo "<td>" . $row['DietID'] . "</td>";
                         echo "<td>" . $row['Round'] . "</td>";
-                        echo "<td>" . $row['DietDate'] . "</td>";
+                        echo "<td>" . date('Y-m-d', strtotime($row['DietDate'])) . "</td>";
                         if (isset($row['Status'])) {
                             echo "<td>" . $row['Status'] . "</td>";
                         } else {

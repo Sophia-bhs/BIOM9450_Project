@@ -7,9 +7,10 @@
     <link href="lists.css" rel="stylesheet" type="text/css">
 </head>
 
-<h1> Patients </h1>
+
 <body>
 <div id="wrap_list">
+        <h1> Patients </h1>
         <?php
             $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
