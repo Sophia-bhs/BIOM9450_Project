@@ -16,7 +16,7 @@
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
         }
-        $patientName = $patientID = $chosenStatus = $medAdminID = $dietAdminID = "";
+        $patientName = $patientID = $medStatus = $dietStatus = $medAdminID = $dietAdminID = "";
         $chosenRound = 1;
         $chosenDate = date('Y-m-d');
         session_start();
@@ -43,9 +43,16 @@
             $chosenRound = $_SESSION["roundNumber"];
             $patientID = $_SESSION["patientID"];
             $medAdminID = $_POST["medAdminID"];  
-            $chosenStatus = $_POST["medStatus"];  
-            echo $medAdminID;
-            echo $chosenStatus;
+            $medStatus = $_POST["medStatus"];  
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dietEdit'])) {
+            $patientName = $_SESSION["patientName"];  
+            $chosenDate = $_SESSION["selectedDate"];
+            $chosenRound = $_SESSION["roundNumber"];
+            $patientID = $_SESSION["patientID"];
+            $dietAdminID = $_POST["dietAdminID"];  
+            $dietStatus = $_POST["dietStatus"];  
+            echo $dietAdminID;
+            echo $dietStatus;
         }
     ?>   
     <div id="wrapper">
@@ -94,12 +101,26 @@
                     }
                     // Update database with status
                     $sql = "UPDATE MedAdministration
-                    SET PractitionerID = $pracID, Status = '$chosenStatus'
+                    SET PractitionerID = $pracID, Status = '$medStatus'
                     WHERE ID = $medAdminID;";
                     $rs  = odbc_exec($conn, $sql);
                     echo odbc_errormsg($conn);
+                } else if(isset($_POST['dietEdit'])) {
+                    if (!$conn) {
+                        odbc_close($conn);
+                        exit("Connection Failed: ".odbc_errormsg());
+                    }
+                    echo $pracID;
+                    echo $dietStatus;
+                    echo $dietAdminID;
+                    // Update database with status
+                    $sql = "UPDATE DietAdministration
+                    SET PractitionerID = $pracID, Status = '$dietStatus'
+                    WHERE ID = $dietAdminID;";
+                    $rs  = odbc_exec($conn, $sql);
+                    echo odbc_errormsg($conn);
                 }
-                if(isset($_POST['search']) || isset($_POST['medEdit'])) {  
+                if(isset($_POST['search']) || isset($_POST['medEdit']) || isset($_POST['dietEdit'])) {  
                     echo "<h2>Your Input:</h2>";  
                     echo "patient Name: ".$patientName."<br>";  
                     echo "chosenDate: ".$chosenDate."<br>";  
@@ -167,6 +188,7 @@
                     echo "<h2>Diet Administration:</h2>"; 
                     echo "<table border-collapse: collapse>
                     <tr>
+                    <th>ID</th>
                     <th>PatientID</th>
                     <th>Practitioner</th>
                     <th>DietID</th>
@@ -176,12 +198,31 @@
                     </tr>";
                     while($row = odbc_fetch_array($rs)) {
                         echo "<tr>";
+                        echo "<td>" . $row['ID'] . "</td>";
                         echo "<td>" . $row['PatientID'] . "</td>";
-                        echo "<td>" . $row['PractitionerID'] . "</td>";
+                        if (isset($row['PractitionerID'])) {
+                            echo "<td>" . $row['PractitionerID'] . "</td>";
+                        } else {
+                            echo "<td>-</td>";
+                        }
                         echo "<td>" . $row['DietID'] . "</td>";
                         echo "<td>" . $row['Round'] . "</td>";
                         echo "<td>" . $row['DietDate'] . "</td>";
-                        echo "<td>" . $row['Status'] . "</td>";
+                        if (isset($row['Status'])) {
+                            echo "<td>" . $row['Status'] . "</td>";
+                        } else {
+                            echo "<td>" . '<form id="chooseStatus" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
+                                <select name="dietStatus" id="dietStatus">
+                                    <option value="Accepted" selected>Accepted</option>
+                                    <option value="Ceased">Ceased</option>
+                                    <option value="Fasting">Fasting</option> 
+                                    <option value="No Stock">No Stock</option> 
+                                    <option value="Rejected">Rejected</option> 
+                                </select>
+                                <input type="hidden" name="dietAdminID" value="' . $row['ID'] . '">
+                                <input type="submit" value="Edit" name="dietEdit">
+                            </form>' . "</td>";
+                        }
                         echo "</tr>";
                     }
                     echo "</table>";
