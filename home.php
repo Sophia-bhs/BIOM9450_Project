@@ -22,38 +22,32 @@
         session_start();
         $pracID = $_SESSION['PracID'];
         $pracName = $_SESSION['PracName'];
- 
-        // Input fields validation  
+  
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {  
-            $patientName = $_POST["patientName"];  
-            $chosenDate = $_POST["selectedDate"];
-            $chosenRound = $_POST["roundNumber"];
+            // Store selected date, patient and round number
+            $_SESSION['patientName'] = $patientName = $_POST["patientName"];  
+            $_SESSION['selectedDate'] = $chosenDate = $_POST["selectedDate"];
+            $_SESSION['roundNumber'] = $chosenRound = $_POST["roundNumber"];
             $sql = "SELECT ID FROM Patient WHERE PatientName = '$patientName'";
             $rs  = odbc_exec($conn, $sql);
             while ($row = odbc_fetch_array($rs)) {
                 $patientID = $row['ID'];
             }
-            $_SESSION['patientName'] = $patientName;
-            $_SESSION['selectedDate'] = $chosenDate;
-            $_SESSION['roundNumber'] = $chosenRound;
             $_SESSION['patientID'] = $patientID;
-        } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['medEdit'])) {
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Read selected date, patient and round number
             $patientName = $_SESSION["patientName"];  
             $chosenDate = $_SESSION["selectedDate"];
             $chosenRound = $_SESSION["roundNumber"];
             $patientID = $_SESSION["patientID"];
-            $medAdminID = $_POST["medAdminID"];  
-            $medStatus = $_POST["medStatus"];  
-        } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dietEdit'])) {
-            $patientName = $_SESSION["patientName"];  
-            $chosenDate = $_SESSION["selectedDate"];
-            $chosenRound = $_SESSION["roundNumber"];
-            $patientID = $_SESSION["patientID"];
-            $dietAdminID = $_POST["dietAdminID"];  
-            $dietStatus = $_POST["dietStatus"];  
-            echo $dietAdminID;
-            echo $dietStatus;
-        }
+            if (isset($_POST['medEdit'])) {
+                $medAdminID = $_POST["medAdminID"];  
+                $medStatus = $_POST["medStatus"];  
+            } else if (isset($_POST['dietEdit'])) {
+                $dietAdminID = $_POST["dietAdminID"];  
+                $dietStatus = $_POST["dietStatus"];  
+            }  
+        } 
     ?>   
     <div id="wrapper">
         <div id="filter">
@@ -130,7 +124,6 @@
                         odbc_close($conn);
                         exit("Connection Failed: ".odbc_errormsg());
                     }
-                    // find patient ID, format date, format round number, format practitioner number
                     //Medication
                     $sql = "SELECT * FROM MedAdministration 
                         WHERE PatientID = $patientID 
@@ -228,8 +221,6 @@
                     echo "</table>";
                 }  
             ?>  
-            
-            
         </div>
     </div>
 
@@ -237,10 +228,25 @@
         <p><strong>Patient Info</strong></p>
         <h3><img src="stickman.jpg" alt="Patient Image" width="150" height="200"></h3>
         <ul>
-            <li>Prescribed</li>
-            <li>PRN</li>
-            <li>Nurse Initiated</li>
-            <li>Report View</li>
+            <?php
+                if (!$conn) {
+                    odbc_close($conn);
+                    exit("Connection Failed: ".odbc_errormsg());
+                }
+                echo odbc_errormsg($conn);
+                $sql = "SELECT * FROM Patient where ID = $patientID";
+                $rs  = odbc_exec($conn,$sql);  
+                echo odbc_errormsg($conn);
+
+                while($row = odbc_fetch_array($rs)) {
+                    echo "<li>" . $row['PatientName']. "</li>";
+                    echo "<li>ID: " . $row['ID']. "</li>";
+                    echo "<li>Age: " . $row['Age']. "</li>";
+                    echo "<li>Gender: " . $row['Gender']. "</li>";
+                    echo "<li>DOB: " . date('Y-m-d', strtotime($row['DOB'])). "</li>";
+                    echo "<li>RoomNumber: " . $row['RoomNumber']. "</li>";
+                }
+            ?>
         </ul>
     </div>
 </body>

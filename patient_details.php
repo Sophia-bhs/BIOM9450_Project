@@ -30,6 +30,7 @@
             <th>Age</th>
             <th>Gender</th>
             <th>DOB</th>
+            <th>Room</th>
             </tr>";
             while($row = odbc_fetch_array($rs)) {
                 echo "<tr>";
@@ -37,7 +38,8 @@
                 echo "<td>" . $row['PatientName']. "</td>";
                 echo "<td>" . $row['Age']. "</td>";
                 echo "<td>" . $row['Gender']. "</td>";
-                echo "<td>" . $row['DOB']. "</td>";
+                echo "<td>" . date('Y-m-d', strtotime($row['DOB'])). "</td>";
+                echo "<td>" . $row['RoomNumber']. "</td>";
                 echo "</tr>";
             }
             echo "</table>";
