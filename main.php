@@ -5,7 +5,20 @@
 		<title>Major Project Webpage</title>
         <link href="main.css" rel="stylesheet" type="text/css">
 	</head>
-
+	<script>
+		$(function() {
+		
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			localStorage.setItem('lastTab', $(this).attr('href'));
+		});
+		var lastTab = localStorage.getItem('lastTab');
+		
+		if (lastTab) {
+			$('[href="' + lastTab + '"]').tab('show');
+		}
+		
+		});
+</script>
     <body bgcolor="#E7FBFC">
 		<?php
 			session_start();
@@ -64,13 +77,13 @@
 
 		<div id="SummaryMedication" class="tabcontent">
 			<?php
-				include('summary_med.php');
+				include('summary_med_date_centre.php');
 			?>
 		</div>
 
 		<div id="SummaryDiet" class="tabcontent">
 			<?php
-				include('diet.php');
+				include('summary_diet_date_centre.php');
 			?>
 		</div>
 
