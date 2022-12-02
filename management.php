@@ -38,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $dobErr = 'The date of birth is invalid. Please check that the month is between 1 and 12, and the day is valid for that month.';
             } else if ($parts[3] > 2022) {
                 $dobErr = 'The date of birth is invalid. Please check that the year is not greater than this year';
+            } else if ($parts[3] < 1900) {
+                $dobErr = 'The date of birth is invalid.';
             }
         $DateArray = explode('/', $dob);
         $day = $DateArray[0];
