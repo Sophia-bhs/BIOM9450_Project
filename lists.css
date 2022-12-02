@@ -59,3 +59,15 @@ table, th, td {
 .linkColor{
 	color:#002fff;
 }
+
+.grid-container{
+    border: none;
+	display: inline-grid;
+	grid-template-columns: max-content max-content;
+	column-gap: 10px;
+}
+
+.grid-item{
+    border: none;
+	margin: 5px;
+}
