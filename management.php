@@ -32,11 +32,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {  
         $dob = input_data($_POST["dob"]);  
             // check if name only contains letters and whitespace  
-            if (!preg_match('~^([0-9]{2})/([0-9]{2})/([0-9]{4})$~', $dob, $parts)) {  
+            if (!preg_match('~^([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})$~', $dob, $parts)) {  
                 $dobErr = "The date of birth is not a valid date in the format DD/MM/YYYY";  
             } else if (!checkdate($parts[2],$parts[1],$parts[3])){
                 $dobErr = 'The date of birth is invalid. Please check that the month is between 1 and 12, and the day is valid for that month.';
             }
+        $DateArray = explode('/', $dob);
+        $day = $DateArray[0];
+        $month = $DateArray[1];
+        $year = $DateArray[2];
+        $dobEur = $day .'-' .$month .'-' .$year;
+        $dobFormat = date('Y-m-d', strtotime($dobEur));
+
+
+
+        // Calculating the age
+        $todaydate = date("Y-m-d");
+        $today = date_create($todaydate);
+        $dobObj = date_create($dobFormat);
+        $diff=date_diff($dobObj,$today);
+        $age_str = $diff->format("%Y");
+        $age = intval( $age_str );
+        
+            
+            
     }
 
     //Empty Field Validation  
@@ -45,13 +64,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {  
             $gender = input_data($_POST["gender"]);  
     }  
-}  
+}
 function input_data($data) {  
-  $data = trim($data);  
-  $data = stripslashes($data);  
-  $data = htmlspecialchars($data);  
-  return $data;  
-}  
+    $data = trim($data);  
+    $data = stripslashes($data);  
+    $data = htmlspecialchars($data);  
+    return $data;  
+  }  
+  
 ?>  
   
 <h2>Registration Form</h2>  
@@ -86,6 +106,14 @@ function input_data($data) {
         echo "Gender: " .$gender;
         echo "<br>"; 
         echo "Date of Birth : " .$dob;
+        echo "<br>"; 
+        echo "Age : " .$age;
+        echo gettype($name);
+        echo gettype($gender);
+        echo gettype($dobFormat);
+        echo gettype($age);
+
+
          
     // $sql = "INSERT INTO Patient (PatientName, Gender, DOB)
 	//	VALUES ('$name', '$gender', '$dob')";	
