@@ -113,6 +113,42 @@ div#footer p {
 	background-color: #ccc;
 }
 
+.tab a {
+	background-color: inherit;
+	text-decoration-color: black;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+}
+
+.tab a:link { 
+	text-decoration: none; 
+	color: black;
+}
+.tab a:visited { 
+	text-decoration: none; 
+	color: black;
+}
+.tab a:hover { 
+	text-decoration: none;
+	color: black; 
+}
+.tab a:active { 
+	text-decoration: none; 
+	color: black;
+}
+/* Change background color of buttons on hover */
+.tab a:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab a.active {
+	background-color: #ccc;
+}
+
 .dropbtn {
 	background-color: #04AA6D;
 	color: white;

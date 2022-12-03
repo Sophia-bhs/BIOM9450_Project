@@ -29,7 +29,7 @@
         $_SESSION['PracName']=odbc_result($execEmail,2);
         odbc_close($conn);
         // if valid login, lead to main page
-        header("Location: main.php");
+        header("Location: home.php");
     }
     else {
         // Create pop up saying incorrect email

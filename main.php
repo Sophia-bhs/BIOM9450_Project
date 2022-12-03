@@ -37,18 +37,16 @@
 		<div class="tab" id="navigation">
 			<!-- <p><strong>Navigation Menu</strong></p> -->
 			<button class="tablinks" onclick="openTab(event, 'Home')" id="defaultOpen">Home</button>
-			<button class="tablinks" onclick="openTab(event, 'Medication')">Medication</button>
-			<button class="tablinks" onclick="openTab(event, 'Diet')">Diet</button>
-			<button class="tablinks" onclick="openTab(event, 'Patients')">Patients</button>
+			<a class="tablinks" href="medication.php">Medication</a>
+			<a class="tablinks" href="diet.php">Diet</a>
+			<a class="tablinks" href="patients.php">Patients</a>
 			<div class="dropdown">
 				<button class="tablinks">Summary</button>
-    			<div class="dropdown-content">
-					<a onclick="openTab(event, 'SummaryMedication')">Medication</a>
-					<a onclick="openTab(event, 'SummaryDiet')">Diet</a>
+				<div class="dropdown-content">
+					<a href="summary_med_date_centre.php">Medication</a>
+					<a href="summary_diet_date_centre.php">Diet</a>
 				</div>
-  			</div> 
-
-			
+			</div> 
 		</div>
 		
 		<div id="Home" class="tabcontent">
