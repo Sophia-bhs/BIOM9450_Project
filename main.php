@@ -27,6 +27,7 @@
 			<button class="tablinks" onclick="openTab(event, 'Medication')">Medication</button>
 			<button class="tablinks" onclick="openTab(event, 'Diet')">Diet</button>
 			<button class="tablinks" onclick="openTab(event, 'Patients')">Patients</button>
+			<button class="tablinks" onclick="openTab(event, 'Management')">Patient Management</button>
 
 			<!-- <ul>
 				<li>Home</li>
@@ -56,6 +57,12 @@
 		<div id="Patients" class="tabcontent">
 			<?php
 				include('patients.php');
+			?>
+		</div>
+
+		<div id="Management" class="tabcontent">
+			<?php
+				include('management.php');
 			?>
 		</div>
 
