@@ -7,6 +7,31 @@
     <link href="lists.css" rel="stylesheet" type="text/css">
 </head>
 
+<?php
+    function ODBC_Results_Data_Diet($res, $sTable, $sRow){
+        $cFields = odbc_num_fields($res);
+        $strTable = "<table class='styled-table' $sTable ><tr>"; 
+        for ($n=1; $n<=$cFields; $n++){
+            $strTable .= "<td $sRow><b>".odbc_field_name($res, $n)."</b></td>";
+        }
+        $strTable .= "</tr>";
+        while(odbc_fetch_row($res)){
+            $strTable .= "<tr>";
+            for ($n=1; $n<=$cFields; $n++){
+                $cell = odbc_result($res, $n);
+                if ($cell==''){
+                    $strTable .= "<td $sRow>&nbsp;</td>";
+                }
+                else{
+                    $strTable .= "<td $sRow>". $cell . "</td>";
+                }
+            }
+            $strTable .= "</tr>";
+        }
+        $strTable .= "</table>";
+        Return $strTable;
+    }
+?>
 
 <body>
     <div class="listing">
@@ -18,7 +43,7 @@
             // define variables to empty values and defalt values
             $today = date("Y/m/d");
             $date = date_create($today);
-            $patientName = "ALL";
+            $patientNameDiet = "ALL";
             $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
                 odbc_close($conn);
@@ -27,7 +52,7 @@
             if(isset($_POST['submits'])){ //check if form was submitted
                 $inputDate = $_POST['centreDate']; //get input text
                 $date = date_create($inputDate);
-                $patientName = $_POST['patientName'];
+                $patientNameDiet = $_POST['patientNameDiet'];
             }
             $date1 = clone date_sub($date, date_interval_create_from_date_string("3 days"));
             $date2 = clone date_add($date, date_interval_create_from_date_string("1 days"));
@@ -46,10 +71,10 @@
                     <input type="date" name="centreDate" min='2022-01-01' max='2025-12-31'>
                 </div>
                 <div class="grid-item">
-                    <label for="patientName">Select Patient:</label>
+                    <label for="patientNameDiet">Select Patient:</label>
                 </div>
                 <div class="grid-item">
-                    <select name="patientName" id="patientName">
+                    <select name="patientNameDiet" id="patientNameDiet">
                         <option value='ALL' selected> ALL </option>
                         <?php 
                             $patientNames = "SELECT PatientName FROM Patient ORDER BY PatientName";
@@ -89,7 +114,7 @@
                 $date5Str = date_format($date5,"Y-m-d");
                 $date6Str = date_format($date6,"Y-m-d");
                 $date7Str = date_format($date7,"Y-m-d");
-                if($patientName!="ALL"){
+                if($patientNameDiet!="ALL"){
                     $summaryQuery="SELECT P.PatientName AS [Patient], D.DietName AS Diet, 
                     D.[Amount/Day] AS [Amount/Day], DA.Round AS Round, 
                     IIf([P1.Name] Is Null,'N/A',[P1.Name]) AS [$date1Name Practitioner], 
@@ -123,10 +148,10 @@
                     LEFT JOIN Practitioner AS P6 ON Day6.PractitionerID = P6.ID) 
                     LEFT JOIN (SELECT * FROM DietAdministration WHERE DietDate=#$date7Str#) AS Day7 ON DA.DietID = Day7.DietID AND (DA.PatientID = Day7.PatientID)) 
                     LEFT JOIN Practitioner AS P7 ON Day7.PractitionerID = P7.ID
-                    WHERE P.PatientName = '$patientName'
+                    WHERE P.PatientName = '$patientNameDiet'
                     ORDER BY P.PatientName, D.DietName;";
                     $summaryRs = odbc_exec($conn, $summaryQuery);
-                    echo odbc_result_all($summaryRs); echo " Results";
+                    echo ODBC_Results_Data_Diet($summaryRs, null, null);
                 }
                 else{
                     $summaryQuery="SELECT P.PatientName AS [Patient], D.DietName AS Diet, 
@@ -164,7 +189,7 @@
                     LEFT JOIN Practitioner AS P7 ON Day7.PractitionerID = P7.ID
                     ORDER BY P.PatientName, D.DietName;";
                     $summaryRs = odbc_exec($conn, $summaryQuery);
-                    echo odbc_result_all($summaryRs); echo " Results";
+                    echo ODBC_Results_Data_Diet($summaryRs, null, null);
                 }
             ?>
         </div>
