@@ -94,16 +94,32 @@
             <div class="container">
                 <label><b>Patient Name</b></label>
                 <input type="text" value="<?php echo $patientName; ?>" name="name" id="name"/>
+                <span class="error">* <?php echo $nameErr; ?> </span>  
+                <br><br>
                 <label><b>Gender</b></label>
                 <input type="text" value="<?php echo $gender; ?>" name="gender" id="gender"/>
+                <span class="error">* <?php echo $genderErr; ?> </span>  
+                <br><br>
                 <label><b>DOB</b></label>
                 <input type="text" value="<?php echo $dob; ?>" name="dob" id="dob"/>
+                <span class="error">* <?php echo $dobErr; ?> </span>  
+                <br><br>
                 <label><b>Room Number</b></label>
                 <input type="number" value="<?php echo $roomNumber; ?>" name="roomNumber" id="roomNumber"/>
+                <span class="error">* <?php echo $roomErr; ?> </span>  
+                <br><br>
                 <input type="hidden" name="patientID" value="<?php echo $patientID; ?>">
                 <button type="submit" name="submit" id="submit">Edit</button>
             </div>
         </form>
+        <?php
+            // if($nameErr == "" && $genderErr == "" && $dobErr == "" && $roomErr == "") {
+
+
+            // } else {
+                
+            // }
+        ?>
     </div>
     
 </body>
