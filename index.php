@@ -4,7 +4,7 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practitioner Login</title>
-    <link href="login.css" rel="stylesheet" type="text/css">
+    <link href="CSS/login.css" rel="stylesheet" type="text/css">
 </head>
 <center>
     <h1> Medication and Diet Regime Management System </h1>

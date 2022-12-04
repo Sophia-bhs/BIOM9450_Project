@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Major Project Webpage</title>
-        <link href="main.css" rel="stylesheet" type="text/css">
+        <link href="CSS/main.css" rel="stylesheet" type="text/css">
 	</head>
 	<script>
 		$(function() {
