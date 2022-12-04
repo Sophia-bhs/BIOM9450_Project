@@ -73,7 +73,6 @@
                 $dobObj = date_create($dobFormat);
                 $diff = date_diff($dobObj, $today);
                 $age = $diff->format("%Y");
-                echo $age;
             }
         }
 
@@ -134,7 +133,7 @@
         <?php  
             if (isset($_POST['submit'])) {  
                 if ($nameErr == "" && $genderErr == "" && $dobErr == "" && $roomErr == "") {  
-                    $conn = odbc_connect('z5256089','','',SQL_CUR_USE_ODBC);
+                    $conn = odbc_connect('z5262083','','',SQL_CUR_USE_ODBC);
                     
                     $sql = "SELECT * FROM Patient where PatientName = '$name' AND DOB = #$dobFormat#";
                     echo odbc_errormsg($conn);
@@ -158,7 +157,7 @@
                     echo odbc_errormsg($conn);
 
                     echo "<h3 color = #FF0001> <b>You have sucessfully registered.</b> </h3>";  
-                    echo "<h2>Your Input:</h2>";  
+                    echo "<h2>New patient added:</h2>";  
                     echo "Name: " .$name;  
                     echo "<br>";  
                     echo "Gender: " .$gender;
