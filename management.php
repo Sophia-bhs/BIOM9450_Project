@@ -119,9 +119,8 @@
         <span class="error">* <?php echo $dobErr; ?> </span>  
         <br><br>    
         Gender:  
-        <input type="radio" name="gender" value="male"> Male  
-        <input type="radio" name="gender" value="female"> Female  
-        <input type="radio" name="gender" value="other"> Other  
+        <input type="radio" name="gender" value="M"> Male  
+        <input type="radio" name="gender" value="F"> Female
         <span class="error">* <?php echo $genderErr; ?> </span>  
         <br><br>
         Room Number:   
