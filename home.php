@@ -31,7 +31,7 @@
     </div>
     <?php
         // define variables to empty values and defalt values
-        $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
+        $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
         if (!$conn) {
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
@@ -119,6 +119,26 @@
                     WHERE ID = $medAdminID;";
                     $rs  = odbc_exec($conn, $sql);
                     echo odbc_errormsg($conn);
+                    // if (strcmp($medStatus,'Rejected') == 0) {
+                    //     // Email message 
+                    //     $to      = 'sophia3lsx@gmail.com';
+                    //     $subject = 'the subject';
+                    //     $message = "Dear Director,\nPatient " . $patientName . "has rejected the medication given today. \n Regards, \n" . $pracName;
+                    //     $msg = wordwrap($message,70);
+
+                    //     $headers  = "MIME-Version: 1.0\r\n";
+                    //     $headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+                    //     $headers .= "From: {$pracName} <sophia3lsx@gmail.com>\r\n";
+                    //     $headers .= "Reply-To: <{sophia3lsx@gmail.com}>\r\n";
+                    //     $headers .= "X-Mailer: PHP/".phpversion()."\r\n";
+                        
+                    //     if(mail($to, $subject, $msg, $headers)) {
+                    //         echo "Mail Sent Successfully";
+                    //     } else {
+                    //         echo "Mail Not Sent";
+                    //         print_r(error_get_last());
+                    //     }
+                    // }
                 } else if(isset($_POST['dietEdit'])) {
                     if (!$conn) {
                         odbc_close($conn);
@@ -130,6 +150,26 @@
                     WHERE ID = $dietAdminID;";
                     $rs  = odbc_exec($conn, $sql);
                     echo odbc_errormsg($conn);
+                    // if (strcmp($dietStatus,'Rejected') == 0) {
+                    //     // Email message 
+                    //     $to      = 'sophia3lsx@gmail.com';
+                    //     $subject = 'the subject';
+                    //     $message = "Dear Director,\nPatient " . $patientName . "has rejected the diet given today. \n Regards, \n" . $pracName;
+                    //     $msg = wordwrap($message,70);
+
+                    //     $headers  = "MIME-Version: 1.0\r\n";
+                    //     $headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+                    //     $headers .= "From: {$pracName} <sophia3lsx@gmail.com>\r\n";
+                    //     $headers .= "Reply-To: <{sophia3lsx@gmail.com}>\r\n";
+                    //     $headers .= "X-Mailer: PHP/".phpversion()."\r\n";
+                        
+                    //     if(mail($to, $subject, $msg, $headers)) {
+                    //         echo "Mail Sent Successfully";
+                    //     } else {
+                    //         echo "Mail Not Sent";
+                    //         print_r(error_get_last());
+                    //     }
+                    }
                 }
 
                 if (!$conn) {
