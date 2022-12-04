@@ -143,7 +143,7 @@
                 $rs  = odbc_exec($conn, $sql);
 
                 echo "<h2>Medication Administration:</h2>"; 
-                echo "<table border-collapse: collapse>
+                echo "<table class='styled-table'>
                 <tr>
                 <th>ID</th>
                 <th>PatientID</th>
@@ -191,7 +191,7 @@
                 $rs  = odbc_exec($conn, $sql);
                 echo odbc_errormsg($conn);
                 echo "<h2>Diet Administration:</h2>"; 
-                echo "<table border-collapse: collapse>
+                echo "<table class='styled-table'>
                 <tr>
                 <th>ID</th>
                 <th>PatientID</th>
