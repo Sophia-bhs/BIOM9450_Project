@@ -28,8 +28,8 @@
             include('nav_bar.php');
         ?>
     </div>
-    <div id="wrap_list">
-        <h1> Edit Patient Information </h1>
+    <div class="listing" id="wrap_list">
+        <h1>Edit Patient Information </h1>
         <?php
             // define variables to empty values
             $nameErr = $dobErr = $genderErr = $roomErr = "";

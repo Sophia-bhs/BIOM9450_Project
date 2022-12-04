@@ -105,77 +105,77 @@
         return $data;  
     }  
     ?>  
-  
-    <h2>Registration Form</h2>  
-    <span class = "error">* required field </span>  
-    <br><br>  
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >    
-        Name:   
-        <input type="text" name="name" placeholder="Enter Name">  
-        <span class="error">* <?php echo $nameErr; ?> </span>  
-        <br><br>
-        Date of Birth:   
-        <input type="text" name="dob" placeholder="DD/MM/YYYY">  
-        <span class="error">* <?php echo $dobErr; ?> </span>  
-        <br><br>    
-        Gender:  
-        <input type="radio" name="gender" value="male"> Male  
-        <input type="radio" name="gender" value="female"> Female  
-        <input type="radio" name="gender" value="other"> Other  
-        <span class="error">* <?php echo $genderErr; ?> </span>  
-        <br><br>
-        Room Number:   
-        <input type="text" name="room" placeholder="Enter Room Number">  
-        <span class="error">* <?php echo $roomErr; ?> </span>  
-        <br><br>
-        <input type="submit" name="submit" value="Submit">   
-        <br><br>                             
-    </form>
-  
-    <?php  
-        if (isset($_POST['submit'])) {  
-            if ($nameErr == "" && $genderErr == "" && $dobErr == "" && $roomErr == "") {  
-                $conn = odbc_connect('z5256089','','',SQL_CUR_USE_ODBC);
-                
-                $sql = "SELECT * FROM Patient where PatientName = '$name' AND DOB = #$dobFormat#";
-                echo odbc_errormsg($conn);
-                $rs = odbc_exec($conn,$sql);
-                if (odbc_fetch_row($rs)) {
-                    echo "This Patient already exists" . "<br>";
-                    exit();
-                }
+    <div class="listing">
+        <h1>Registration Form</h1>  
+        <span class = "error">* required field </span>  
+        <br><br>  
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >    
+            Name:   
+            <input type="text" name="name" placeholder="Enter Name">  
+            <span class="error">* <?php echo $nameErr; ?> </span>  
+            <br><br>
+            Date of Birth:   
+            <input type="text" name="dob" placeholder="DD/MM/YYYY">  
+            <span class="error">* <?php echo $dobErr; ?> </span>  
+            <br><br>    
+            Gender:  
+            <input type="radio" name="gender" value="male"> Male  
+            <input type="radio" name="gender" value="female"> Female  
+            <input type="radio" name="gender" value="other"> Other  
+            <span class="error">* <?php echo $genderErr; ?> </span>  
+            <br><br>
+            Room Number:   
+            <input type="text" name="room" placeholder="Enter Room Number">  
+            <span class="error">* <?php echo $roomErr; ?> </span>  
+            <br><br>
+            <input type="submit" name="submit" value="Submit">   
+            <br><br>                             
+        </form>
+    
+        <?php  
+            if (isset($_POST['submit'])) {  
+                if ($nameErr == "" && $genderErr == "" && $dobErr == "" && $roomErr == "") {  
+                    $conn = odbc_connect('z5256089','','',SQL_CUR_USE_ODBC);
+                    
+                    $sql = "SELECT * FROM Patient where PatientName = '$name' AND DOB = #$dobFormat#";
+                    echo odbc_errormsg($conn);
+                    $rs = odbc_exec($conn,$sql);
+                    if (odbc_fetch_row($rs)) {
+                        echo "This Patient already exists" . "<br>";
+                        exit();
+                    }
 
-                $sql = "SELECT * FROM Patient where RoomNumber = $room";
-                echo odbc_errormsg($conn);
-                $rs = odbc_exec($conn,$sql);
-                if (odbc_fetch_row($rs)) {
-                    echo "This room already has a patient" . "<br>";
-                    exit();
-                }
+                    $sql = "SELECT * FROM Patient where RoomNumber = $room";
+                    echo odbc_errormsg($conn);
+                    $rs = odbc_exec($conn,$sql);
+                    if (odbc_fetch_row($rs)) {
+                        echo "This room already has a patient" . "<br>";
+                        exit();
+                    }
 
-                $sql = "INSERT INTO Patient (PatientName, Age, Gender, DOB, RoomNumber)
-                    VALUES ('$name', '$age', '$gender', '$dobFormat', '$room')";	
-                $rs = odbc_exec($conn,$sql);
-                echo odbc_errormsg($conn);
+                    $sql = "INSERT INTO Patient (PatientName, Age, Gender, DOB, RoomNumber)
+                        VALUES ('$name', '$age', '$gender', '$dobFormat', '$room')";	
+                    $rs = odbc_exec($conn,$sql);
+                    echo odbc_errormsg($conn);
 
-                echo "<h3 color = #FF0001> <b>You have sucessfully registered.</b> </h3>";  
-                echo "<h2>Your Input:</h2>";  
-                echo "Name: " .$name;  
-                echo "<br>";  
-                echo "Gender: " .$gender;
-                echo "<br>"; 
-                echo "Date of Birth : " .$dob;
-                echo "<br>"; 
-                echo "Age : " .$age;
-                echo "<br>";  
-                echo "Room Number : " .$room;
-                echo "<br>";
-            } else {  
-                echo "<h3> <b>You didn't filled up the form correctly.</b> </h3>";  
-            }  
-        } 
-    ?>
-
+                    echo "<h3 color = #FF0001> <b>You have sucessfully registered.</b> </h3>";  
+                    echo "<h2>Your Input:</h2>";  
+                    echo "Name: " .$name;  
+                    echo "<br>";  
+                    echo "Gender: " .$gender;
+                    echo "<br>"; 
+                    echo "Date of Birth : " .$dob;
+                    echo "<br>"; 
+                    echo "Age : " .$age;
+                    echo "<br>";  
+                    echo "Room Number : " .$room;
+                    echo "<br>";
+                } else {  
+                    echo "<h3> <b>You didn't filled up the form correctly.</b> </h3>";  
+                }  
+            } 
+        ?>
+    </div>
     <div id="Footer">
         <?php
             include('footer.php');
