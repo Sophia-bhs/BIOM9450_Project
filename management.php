@@ -73,7 +73,6 @@
                 $dobObj = date_create($dobFormat);
                 $diff = date_diff($dobObj, $today);
                 $age = $diff->format("%Y");
-                echo $age;
             }
         }
 
