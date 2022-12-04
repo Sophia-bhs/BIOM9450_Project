@@ -50,7 +50,7 @@
                 while($row = odbc_fetch_array($rs)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID']. "</td>";
-                    echo "<td>" . '<a class="linkColor" href="med_details.php?id='.$row['ID'].'">'.$row['MedName'].'</a>' . "</td>";
+                    echo "<td>" . '<a class="linkColor" href="details_med.php?id='.$row['ID'].'">'.$row['MedName'].'</a>' . "</td>";
                     echo "</tr>";
                 }
                 echo "</table>";
