@@ -17,15 +17,19 @@
         $PracID = $_SESSION['PracID'];
         $PracName = $_SESSION['PracName'];
     ?>
-    <div class="PatientDiet" id="header">
-        <h1> Diet Details </h1>
+    <div class="PatientMedAd" id="header">
+        <h1>
+            Patient Med Administration
+        </h1>
     </div>
+
     <div id="Naviagation">
         <?php
             include('nav_bar.php');
         ?>
     </div>
-    <div id="wrap_list">
+    <div id="wrap_list" class="listing">
+        <h1> Diet Details </h1>
         <?php
             // ID of Patient selected
             $id = (int) $_GET['id'];
@@ -39,7 +43,7 @@
             $sql = "SELECT * FROM Diet where ID = $id";
             $rs  = odbc_exec($conn,$sql);  
             echo odbc_errormsg($conn);
-            echo "<table border-collapse: collapse>
+            echo "<table class='styled-table'>
             <tr>
             <th>ID</th>
             <th>Diet Name</th>
