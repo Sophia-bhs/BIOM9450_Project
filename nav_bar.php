@@ -12,10 +12,16 @@
     <div class="tab" id="navigation">
         <!-- <p><strong>Navigation Menu</strong></p> -->
         <a class="tablinks" href="home.php">Home</a>
-        <a class="tablinks" href="medication.php">Medication</a>
-        <a class="tablinks" href="diet.php">Diet</a>
-        <a class="tablinks" href="patients.php">Patients</a>
         <a class="tablinks" href="management.php">Patient Management</a>
+        <div class="dropdown">
+            <button class="tablinks">Details</button>
+            <div class="dropdown-content">
+                <a href="medication.php">Medication List</a>
+                <a href="diet.php">Diet List</a>
+                <a href="patients.php">Patient List</a>
+            </div>
+        </div>             
+        
         <div class="dropdown">
             <button class="tablinks">Summary</button>
             <div class="dropdown-content">
