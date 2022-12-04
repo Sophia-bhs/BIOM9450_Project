@@ -30,6 +30,7 @@
         <a class="tablinks" href="medication.php">Medication</a>
         <a class="tablinks" href="diet.php">Diet</a>
         <a class="tablinks" href="patients.php">Patients</a>
+        <a class="tablinks" href="management.php">Patient Management</a>
         <div class="dropdown">
             <button class="tablinks">Summary</button>
             <div class="dropdown-content">
@@ -266,7 +267,7 @@
                     echo "<li>Age: " . $row['Age']. "</li>";
                     echo "<li>Gender: " . $row['Gender']. "</li>";
                     echo "<li>DOB: " . date('Y-m-d', strtotime($row['DOB'])). "</li>";
-                    echo "<li>RoomNumber: " . $row['RoomNumber']. "</li>";
+                    echo "<li>Room Number: " . $row['RoomNumber']. "</li>";
                 }
             ?>
         </ul>
@@ -276,15 +277,10 @@
             
         </form>
     </div>
-    <div id="footer">
-			<div class="PracName">
-				<?php
-					echo "Practitioner: $PracName";
-				?>
-			</div>
-			<div class="logout">
-				<a class="logout" href="logout.php" title="Logout">Logout
-			</div>
-		</div>
+    <div id="Footer">
+        <?php
+            include('footer.php');
+        ?>
+    </div>
 </body>
 </html>
