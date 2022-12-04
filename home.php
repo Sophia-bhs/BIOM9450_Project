@@ -31,7 +31,7 @@
     </div>
     <?php
         // define variables to empty values and defalt values
-        $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
+        $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
         if (!$conn) {
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
@@ -42,7 +42,7 @@
         $chosenDate = date('Y-m-d');
         $pracID = $_SESSION['PracID'];
         $pracName = $_SESSION['PracName'];
-  
+        $admTime = date('H:i:s');
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {  
             // Store selected date, patient and round number
             $_SESSION['patientName'] = $patientName = $_POST["patientName"];  
@@ -115,7 +115,7 @@
                     }
                     // Update database with status
                     $sql = "UPDATE MedAdministration
-                    SET PractitionerID = $pracID, Status = '$medStatus'
+                    SET PractitionerID = $pracID, Status = '$medStatus', MedTime = #$admTime#
                     WHERE ID = $medAdminID;";
                     $rs  = odbc_exec($conn, $sql);
                     echo odbc_errormsg($conn);
@@ -126,7 +126,7 @@
                     }
                     // Update database with status
                     $sql = "UPDATE DietAdministration
-                    SET PractitionerID = $pracID, Status = '$dietStatus'
+                    SET PractitionerID = $pracID, Status = '$dietStatus', DietTime = #$admTime#
                     WHERE ID = $dietAdminID;";
                     $rs  = odbc_exec($conn, $sql);
                     echo odbc_errormsg($conn);
@@ -151,6 +151,7 @@
                 <th>MedID</th>
                 <th>Round</th>
                 <th>Date</th>
+                <th>Time</th>
                 <th>Status</th>
                 </tr>";
                 while($row = odbc_fetch_array($rs)) {
@@ -165,6 +166,8 @@
                     echo "<td>" . $row['MedID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['MedDate'])) . "</td>";
+                    $time = explode(' ', $row['MedTime']);
+                    echo "<td>" . $time[1] . "</td>";
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
@@ -199,6 +202,7 @@
                 <th>DietID</th>
                 <th>Round</th>
                 <th>Date</th>
+                <th>Time</th>
                 <th>Status</th>
                 </tr>";
                 while($row = odbc_fetch_array($rs)) {
@@ -213,6 +217,8 @@
                     echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['DietDate'])) . "</td>";
+                    $time = explode(' ', $row['DietTime']);
+                    echo "<td>" . $time[1] . "</td>";
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
