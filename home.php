@@ -237,7 +237,7 @@
 
     <div id="extra">
         <p><strong>Patient Info</strong></p>
-        <h3><img src="stickman.jpg" alt="Patient Image" width="150" height="200"></h3>
+        <!-- <h3><img src="stickman.jpg" alt="Patient Image" width="150" height="200"></h3> -->
         <ul>
             <?php
                 if (!$conn) {
@@ -250,6 +250,7 @@
                 echo odbc_errormsg($conn);
 
                 while($row = odbc_fetch_array($rs)) {
+                    echo "<h3><img src=" .$row['Picture']. " alt=\"Patient Image\" width=\"150\" height=\"200\"></h3>";
                     echo "<li>" . $row['PatientName']. "</li>";
                     echo "<li>ID: " . $row['ID']. "</li>";
                     echo "<li>Age: " . $row['Age']. "</li>";
