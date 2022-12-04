@@ -1,0 +1,193 @@
+.PatientMedAd {
+	font-family:Palatino;
+	font-size: 200%;
+	text-align: center;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color: #292929;
+	font: 90% Roboto, Arial, sans-serif;
+	font-weight: 300;
+}
+
+p {
+	padding: 0 10px;
+	line-height: 1.8;
+}
+
+ul li {
+	padding-right: 10px;
+	line-height: 1.6;
+	list-style-type: none;
+}
+
+h3 {
+	padding: 5px 20px;
+	margin: 0;
+}
+
+div#header {
+	position: relative;
+}
+
+div#header h1 {
+	height: 80px;
+	line-height: 80px;
+	margin: 0%;
+	padding-left: 10px;
+	background: #C6FBFD;
+	color: #292929;
+}
+
+div#navigation {
+	background: #7cb71c;
+	position: sticky;
+	float: left;
+	width: 100%;
+}
+
+table, th, td {
+	border: 1px solid black;
+	width: 100px;
+	height: 50px;
+}
+
+div#footer {
+	clear: both;
+	left: 0;
+  	bottom: 0;
+	height: 5%;
+	width: 100%;
+	background: #42444e;
+	color: #fff;
+	position: fixed;
+}
+
+div#footer p {
+	padding: 10px 10px;
+}
+
+.PracName {
+    float: left;
+	padding-left: 20px;
+	padding-top: 0.75%;
+}
+
+.logout {
+    float:right;
+	padding-right: 20px;
+	padding-top: 0.75%;
+	color: hotpink;
+}
+
+/* Style the tab */
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+	overflow: visible;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+	background-color: inherit;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font: 14.4px Roboto, Arial, sans-serif;
+	font-weight: 300;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: #ccc;
+}
+
+.tab a {
+	background-color: inherit;
+	text-decoration-color: black;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+}
+
+.tab a:link { 
+	text-decoration: none; 
+	color: black;
+}
+.tab a:visited { 
+	text-decoration: none; 
+	color: black;
+}
+.tab a:hover { 
+	text-decoration: none;
+	color: black; 
+}
+.tab a:active { 
+	text-decoration: none; 
+	color: black;
+}
+/* Change background color of buttons on hover */
+.tab a:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab a.active {
+	background-color: #ccc;
+}
+
+.dropbtn {
+	background-color: #04AA6D;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+	position: relative;
+	display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
