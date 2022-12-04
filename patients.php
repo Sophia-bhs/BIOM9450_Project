@@ -36,9 +36,7 @@
                         <a href="summary_med_date_centre.php">Medication</a>
                         <a href="summary_diet_date_centre.php">Diet</a>
                     </div>
-                </div> 
-
-                
+                </div>             
             </div>
     <div class="listing">
         <h1> Patients </h1>

@@ -23,7 +23,6 @@
             Patient Med Administration
         </h1>
     </div>
-
             <div class="tab" id="navigation">
                 <!-- <p><strong>Navigation Menu</strong></p> -->
                 <a class="tablinks" href="home.php">Home</a>

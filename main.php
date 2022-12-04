@@ -73,6 +73,12 @@
 			?>
 		</div>
 
+		<div id="Management" class="tabcontent">
+			<?php
+				include('management.php');
+			?>
+		</div>
+
 		<div id="SummaryMedication" class="tabcontent">
 			<?php
 				include('summary_med_date_centre.php');
