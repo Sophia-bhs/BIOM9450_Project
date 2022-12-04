@@ -4,12 +4,28 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diet Details</title>
-    <!-- <link href="lists.css" rel="stylesheet" type="text/css"> -->
+    <link href="lists.css" rel="stylesheet" type="text/css">
+    <link href="main.css" rel="stylesheet" type="text/css">
 </head>
 
-<h1> Diet Details</h1>
-<body>
-<div id="wrap_list">
+<body bgcolor="#E7FBFC">
+    <div class="PatientDiet" id="header">
+        <h1> Diet Details </h1>
+    </div>
+    <div class="tab" id="navigation">
+        <a class="tablinks" href="home.php">Home</a>
+        <a class="tablinks" href="medication.php">Medication</a>
+        <a class="tablinks" href="diet.php">Diet</a>
+        <a class="tablinks" href="patients.php">Patients</a>
+        <div class="dropdown">
+            <button class="tablinks">Summary</button>
+            <div class="dropdown-content">
+                <a href="summary_med_date_centre.php">Medication</a>
+                <a href="summary_diet_date_centre.php">Diet</a>
+            </div>
+        </div> 
+    </div>
+    <div id="wrap_list">
         <?php
             // ID of Patient selected
             $id = (int) $_GET['id'];
@@ -47,6 +63,15 @@
             odbc_close($conn);
         ?>
     </div>
-
+    <div id="footer">
+        <div class="PracName">
+            <?php
+                echo "Practitioner: $PracName";
+            ?>
+        </div>
+        <div class="logout">
+            <a class="logout" href="logout.php" title="Logout">Logout
+        </div>
+    </div>
 </body>
 </html>
