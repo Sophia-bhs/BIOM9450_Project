@@ -57,7 +57,7 @@
                 echo "<td>" . $row['PatientName']. "</td>";
                 echo "<td>" . $row['Age']. "</td>";
                 echo "<td>" . $row['Gender']. "</td>";
-                echo "<td>" . date('Y-m-d', strtotime($row['DOB'])). "</td>";
+                echo "<td>" . date('d/m/Y', strtotime($row['DOB'])). "</td>";
                 echo "<td>" . $row['RoomNumber']. "</td>";
                 echo "</tr>";
             }

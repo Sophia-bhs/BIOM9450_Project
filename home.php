@@ -164,7 +164,7 @@
                     }
                     echo "<td>" . $row['MedID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
-                    echo "<td>" . date('Y-m-d', strtotime($row['MedDate'])) . "</td>";
+                    echo "<td>" . date('d/m/Y', strtotime($row['MedDate'])) . "</td>";
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
@@ -212,7 +212,7 @@
                     }
                     echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
-                    echo "<td>" . date('Y-m-d', strtotime($row['DietDate'])) . "</td>";
+                    echo "<td>" . date('d/m/Y', strtotime($row['DietDate'])) . "</td>";
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
@@ -254,7 +254,7 @@
                     echo "<li>ID: " . $row['ID']. "</li>";
                     echo "<li>Age: " . $row['Age']. "</li>";
                     echo "<li>Gender: " . $row['Gender']. "</li>";
-                    echo "<li>DOB: " . date('Y-m-d', strtotime($row['DOB'])). "</li>";
+                    echo "<li>DOB: " . date('d/m/Y', strtotime($row['DOB'])). "</li>";
                     echo "<li>Room Number: " . $row['RoomNumber']. "</li>";
                 }
             ?>
