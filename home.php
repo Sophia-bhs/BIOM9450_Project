@@ -226,7 +226,7 @@
                 <th>Patient</th>
                 <th>Practitioner</th>
                 <th>Name</th>
-                <th>Amount</th>
+                <th>Amount/Day</th>
                 <th>Round</th>
                 <th>Date</th>
                 <th>Time</th>
