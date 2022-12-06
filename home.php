@@ -42,7 +42,7 @@
         $chosenDate = date('Y-m-d');
         $pracID = $_SESSION['PracID'];
         $pracName = $_SESSION['PracName'];
-  
+        $admTime = date('H:i:s');
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {  
             // Store selected date, patient and round number
             $_SESSION['patientName'] = $patientName = $_POST["patientName"];  
@@ -78,17 +78,29 @@
                 <label for="patientName">Patient Name:</label>
                 <select name="patientName" id="patientName">
                 <?php 
-                    $sql = "SELECT PatientName FROM Patient ORDER BY PatientName";
+                    $sql = "SELECT ID, PatientName FROM Patient ORDER BY PatientName";
                     $rs  = odbc_exec($conn, $sql);
+                    // $sql = "SELECT PatientName FROM Patient INNER JOIN PracPatient ON Patient.ID = PracPatient.PatientID WHERE PractitionerID = $pracID ORDER BY PatientName";
+                    // $caredPatient  = odbc_exec($conn, $sql);
                     $firstPatient = true;
                     while ($row = odbc_fetch_array($rs)) {
+                        $formValue = "";
+                        $pID = $row['ID'];
+                        $sql = "SELECT * FROM PracPatient WHERE PractitionerID = $pracID AND PatientID = $pID";
+                        $caredPatient  = odbc_exec($conn, $sql);
+                        if (odbc_fetch_row($caredPatient)) {
+                            $formValue = $row['PatientName']."*";
+                        } else {
+                            $formValue = $row['PatientName'];
+                        }
+
                         if (isset($patientName) && $patientName == $row['PatientName']) {
-                            echo "<option value='".$row['PatientName']."' selected>".$row['PatientName']."</option>";
+                            echo "<option value='".$row['PatientName']."' selected>".$formValue."</option>";
                         } else if (!isset($patientName) && $firstPatient == true) {
-                            echo "<option value='".$row['PatientName']."' selected>".$row['PatientName']."</option>";
+                            echo "<option value='".$row['PatientName']."' selected>".$formValue."</option>";
                             $firstPatient = false;
                         } else {
-                            echo "<option value='".$row['PatientName']."'>".$row['PatientName']."</option>";
+                            echo "<option value='".$row['PatientName']."'>".$formValue."</option>";
                         }
                     }
                 ?>        
@@ -115,7 +127,7 @@
                     }
                     // Update database with status
                     $sql = "UPDATE MedAdministration
-                    SET PractitionerID = $pracID, Status = '$medStatus'
+                    SET PractitionerID = $pracID, Status = '$medStatus', MedTime = #$admTime#
                     WHERE ID = $medAdminID;";
                     $rs  = odbc_exec($conn, $sql);
                     echo odbc_errormsg($conn);
@@ -126,7 +138,7 @@
                     }
                     // Update database with status
                     $sql = "UPDATE DietAdministration
-                    SET PractitionerID = $pracID, Status = '$dietStatus'
+                    SET PractitionerID = $pracID, Status = '$dietStatus', DietTime = #$admTime#
                     WHERE ID = $dietAdminID;";
                     $rs  = odbc_exec($conn, $sql);
                     echo odbc_errormsg($conn);
@@ -143,28 +155,49 @@
                 $rs  = odbc_exec($conn, $sql);
 
                 echo "<h2>Medication Administration:</h2>"; 
-                echo "<table border-collapse: collapse>
+                echo "<table class='styled-table'>
                 <tr>
                 <th>ID</th>
-                <th>PatientID</th>
+                <th>Patient</th>
                 <th>Practitioner</th>
-                <th>MedID</th>
+                <th>Name</th>
+                <th>Dosage</th>
+                <th>Route</th>
                 <th>Round</th>
                 <th>Date</th>
+                <th>Time</th>
                 <th>Status</th>
                 </tr>";
                 while($row = odbc_fetch_array($rs)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
-                    echo "<td>" . $row['PatientID'] . "</td>";
+                    echo "<td>" . $patientName . "</td>";
                     if (isset($row['PractitionerID'])) {
-                        echo "<td>" . $row['PractitionerID'] . "</td>";
+                        $pID = $row['PractitionerID'];
+                        $sql = "SELECT Name FROM Practitioner WHERE ID = $pID";
+                        $pracNameQ  = odbc_exec($conn, $sql);
+                        while($rowMed = odbc_fetch_array($pracNameQ)) {
+                            echo "<td>" . $rowMed['Name'] . "</td>";
+                        }
                     } else {
                         echo "<td>-</td>";
                     }
-                    echo "<td>" . $row['MedID'] . "</td>";
+                    $medID = $row['MedID'];
+                    $sql = "SELECT MedName, Dosage, Route FROM Medication WHERE ID = $medID";
+                    $medNameQ  = odbc_exec($conn, $sql);
+                    while($rowMed = odbc_fetch_array($medNameQ)) {
+                        echo "<td>" . $rowMed['MedName'] . "</td>";
+                        echo "<td>" . $rowMed['Dosage'] . "</td>";
+                        echo "<td>" . $rowMed['Route'] . "</td>";
+                    }
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['MedDate'])) . "</td>";
+                    if (isset($row['MedTime'])) {
+                        $time = explode(' ', $row['MedTime']);
+                        echo "<td>" . $time[1] . "</td>";
+                    } else {
+                        echo "<td>-</td>";
+                    }
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
@@ -191,28 +224,48 @@
                 $rs  = odbc_exec($conn, $sql);
                 echo odbc_errormsg($conn);
                 echo "<h2>Diet Administration:</h2>"; 
-                echo "<table border-collapse: collapse>
+                echo "<table class='styled-table'>
                 <tr>
                 <th>ID</th>
-                <th>PatientID</th>
+                <th>Patient</th>
                 <th>Practitioner</th>
-                <th>DietID</th>
+                <th>Name</th>
+                <th>Amount/Day</th>
                 <th>Round</th>
                 <th>Date</th>
+                <th>Time</th>
                 <th>Status</th>
                 </tr>";
                 while($row = odbc_fetch_array($rs)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
-                    echo "<td>" . $row['PatientID'] . "</td>";
+                    echo "<td>" . $patientName . "</td>";
                     if (isset($row['PractitionerID'])) {
-                        echo "<td>" . $row['PractitionerID'] . "</td>";
+                        $pID = $row['PractitionerID'];
+                        $sql = "SELECT Name FROM Practitioner WHERE ID = $pID";
+                        $pracNameQ  = odbc_exec($conn, $sql);
+                        while($rowMed = odbc_fetch_array($pracNameQ)) {
+                            echo "<td>" . $rowMed['Name'] . "</td>";
+                        }
                     } else {
                         echo "<td>-</td>";
                     }
-                    echo "<td>" . $row['DietID'] . "</td>";
+                    $dietID = $row['DietID'];
+                    $sql = "SELECT DietName, [Amount/Day] FROM Diet WHERE ID = $dietID";
+                    $dietNameQ  = odbc_exec($conn, $sql);
+                    while($rowDiet = odbc_fetch_array($dietNameQ)) {
+                        echo "<td>" . $rowDiet['DietName'] . "</td>";
+                        echo "<td>" . $rowDiet['Amount/Day'] . "</td>";
+                    }
+                    // echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['DietDate'])) . "</td>";
+                    if (isset($row['DietTime'])) {
+                        $time = explode(' ', $row['DietTime']);
+                        echo "<td>" . $time[1] . "</td>";
+                    } else {
+                        echo "<td>-</td>";
+                    }
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {

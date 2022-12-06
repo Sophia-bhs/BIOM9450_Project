@@ -38,7 +38,7 @@
                     exit("Connection Failed: ".odbc_errormsg());
                 }
                 
-                $sql = "SELECT ID, DietName FROM Diet";
+                $sql = "SELECT ID, DietName FROM Diet ORDER BY ID";
                 $rs  = odbc_exec($conn,$sql);  
                 ?>
                 <table class="styled-table">
@@ -50,7 +50,7 @@
                 while($row = odbc_fetch_array($rs)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID']. "</td>";
-                    echo "<td>" . '<a class="linkColor" href="diet_details.php?id='.$row['ID'].'">'.$row['DietName'].'</a>' . "</td>";
+                    echo "<td>" . '<a class="linkColor" href="details_diet.php?id='.$row['ID'].'">'.$row['DietName'].'</a>' . "</td>";
                     echo "</tr>";
                 }
                 echo "</table>";
