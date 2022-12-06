@@ -78,7 +78,9 @@
                 <label for="patientName">Patient Name:</label>
                 <select name="patientName" id="patientName">
                 <?php 
-                    $sql = "SELECT PatientName FROM Patient ORDER BY PatientName";
+                    // $sql = "SELECT PatientName FROM Patient WHERE ID = (SELECT PatientID from PracPatient WHERE PractitionerID = $pracID) ORDER BY PatientName";
+                    $sql = "SELECT PatientName FROM Patient INNER JOIN PracPatient ON Patient.ID = PracPatient.PatientID WHERE PractitionerID = $pracID ORDER BY PatientName";
+
                     $rs  = odbc_exec($conn, $sql);
                     $firstPatient = true;
                     while ($row = odbc_fetch_array($rs)) {
@@ -139,7 +141,7 @@
                 //Medication
                 $sql = "SELECT * FROM MedAdministration 
                     WHERE PatientID = $patientID 
-                    AND Round = $chosenRound AND MedDate = #$chosenDate# AND PractitionerID = $PracID";
+                    AND Round = $chosenRound AND MedDate = #$chosenDate#";
                 $rs  = odbc_exec($conn, $sql);
 
                 echo "<h2>Medication Administration:</h2>"; 
@@ -190,7 +192,7 @@
                 //Diet
                 $sql = "SELECT * FROM DietAdministration 
                     WHERE PatientID = $patientID 
-                    AND Round = $chosenRound AND DietDate = #$chosenDate# AND PractitionerID = $PracID";
+                    AND Round = $chosenRound AND DietDate = #$chosenDate#";
                 $rs  = odbc_exec($conn, $sql);
                 echo odbc_errormsg($conn);
                 echo "<h2>Diet Administration:</h2>"; 
