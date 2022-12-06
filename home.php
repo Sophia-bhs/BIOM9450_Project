@@ -139,7 +139,7 @@
                 //Medication
                 $sql = "SELECT * FROM MedAdministration 
                     WHERE PatientID = $patientID 
-                    AND Round = $chosenRound AND MedDate = #$chosenDate#";
+                    AND Round = $chosenRound AND MedDate = #$chosenDate# AND PractitionerID = $PracID";
                 $rs  = odbc_exec($conn, $sql);
 
                 echo "<h2>Medication Administration:</h2>"; 
@@ -190,7 +190,7 @@
                 //Diet
                 $sql = "SELECT * FROM DietAdministration 
                     WHERE PatientID = $patientID 
-                    AND Round = $chosenRound AND DietDate = #$chosenDate#";
+                    AND Round = $chosenRound AND DietDate = #$chosenDate# AND PractitionerID = $PracID";
                 $rs  = odbc_exec($conn, $sql);
                 echo odbc_errormsg($conn);
                 echo "<h2>Diet Administration:</h2>"; 
