@@ -11,7 +11,7 @@
 <?php
     function ODBC_Results_Data_Med($res, $sTable, $sRow){
         $cFields = odbc_num_fields($res);
-        $strTable = "<table class='styled-table' $sTable ><tr>"; 
+        $strTable = "<table class='summary-styled-table' $sTable ><tr>"; 
         for ($n=1; $n<=$cFields; $n++){
             $strTable .= "<td $sRow><b>".odbc_field_name($res, $n)."</b></td>";
         }

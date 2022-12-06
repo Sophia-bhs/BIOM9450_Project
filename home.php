@@ -31,7 +31,7 @@
     </div>
     <?php
         // define variables to empty values and defalt values
-        $conn = odbc_connect('z5256089','' ,'' ,SQL_CUR_USE_ODBC); 
+        $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
         if (!$conn) {
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
@@ -137,7 +137,7 @@
                         echo "<li>ID: " . $row['ID']. "</li>";
                         echo "<li>Age: " . $row['Age']. "</li>";
                         echo "<li>Gender: " . $row['Gender']. "</li>";
-                        echo "<li>DOB: " . date('Y-m-d', strtotime($row['DOB'])). "</li>";
+                        echo "<li>DOB: " . date('d/m/Y', strtotime($row['DOB'])). "</li>";
                         echo "<li>Room Number: " . $row['RoomNumber']. "</li>";
                     }
                 ?>
@@ -188,13 +188,16 @@
                 echo "<h2>Medication Administration:</h2>"; 
                 echo "<table class='home-styled-table'>
                 <colgroup>
-                    <col span='1' style='width: 10%;'>
-                    <col span='1' style='width: 20%;'>
-                    <col span='1' style='width: 20%;'>
-                    <col span='1' style='width: 20%;'>
-                    <col span='1' style='width: 10%;'>
-                    <col span='1' style='width: 10%;'>
-                    <col span='1' style='width: 10%;'>
+                    <col span='1' style='width: 5%;'>
+                    <col span='1' style='width: 15%;'>
+                    <col span='1' style='width: 15%;'>
+                    <col span='1' style='width: 15%;'>
+                    <col span='1' style='width: 8%;'>
+                    <col span='1' style='width: 8%;'>
+                    <col span='1' style='width: 8%;'>
+                    <col span='1' style='width: 8%;'>
+                    <col span='1' style='width: 9%;'>
+                    <col span='1' style='width: 9%;'>
                 </colgroup>
                 <tbody>
                 <tr>
@@ -232,7 +235,7 @@
                         echo "<td>" . $rowMed['Route'] . "</td>";
                     }
                     echo "<td>" . $row['Round'] . "</td>";
-                    echo "<td>" . date('Y-m-d', strtotime($row['MedDate'])) . "</td>";
+                    echo "<td>" . date('d/m/Y', strtotime($row['MedDate'])) . "</td>";
                     if (isset($row['MedTime'])) {
                         $time = explode(' ', $row['MedTime']);
                         echo "<td>" . $time[1] . "</td>";
@@ -268,13 +271,15 @@
                 echo "<h2>Diet Administration:</h2>"; 
                 echo "<table class='home-styled-table'>
                 <colgroup>
-                    <col span='1' style='width: 10%;'>
-                    <col span='1' style='width: 20%;'>
-                    <col span='1' style='width: 20%;'>
-                    <col span='1' style='width: 20%;'>
-                    <col span='1' style='width: 10%;'>
-                    <col span='1' style='width: 10%;'>
-                    <col span='1' style='width: 10%;'>
+                <col span='1' style='width: 5%;'>
+                <col span='1' style='width: 15%;'>
+                <col span='1' style='width: 15%;'>
+                <col span='1' style='width: 15%;'>
+                <col span='1' style='width: 16%;'>
+                <col span='1' style='width: 8%;'>
+                <col span='1' style='width: 8%;'>
+                <col span='1' style='width: 9%;'>
+                <col span='1' style='width: 9%;'>
                 </colgroup>
                 <tr>
                 <th>ID</th>
@@ -310,7 +315,7 @@
                     }
                     // echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
-                    echo "<td>" . date('Y-m-d', strtotime($row['DietDate'])) . "</td>";
+                    echo "<td>" . date('d/m/Y', strtotime($row['DietDate'])) . "</td>";
                     if (isset($row['DietTime'])) {
                         $time = explode(' ', $row['DietTime']);
                         echo "<td>" . $time[1] . "</td>";

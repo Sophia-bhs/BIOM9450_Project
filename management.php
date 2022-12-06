@@ -108,32 +108,47 @@
         <h1>Registration Form</h1>  
         <span class = "error">* required field </span>  
         <br><br>  
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >    
-            Name:   
-            <input type="text" name="name" placeholder="Enter Name">  
-            <span class="error">* <?php echo $nameErr; ?> </span>  
-            <br><br>
-            Date of Birth:   
-            <input type="text" name="dob" placeholder="DD/MM/YYYY">  
-            <span class="error">* <?php echo $dobErr; ?> </span>  
-            <br><br>    
-            Gender:  
-            <input type="radio" name="gender" value="M"> Male  
-            <input type="radio" name="gender" value="F"> Female  
-            <span class="error">* <?php echo $genderErr; ?> </span>  
-            <br><br>
-            Room Number:   
-            <input type="text" name="room" placeholder="Enter Room Number">  
-            <span class="error">* <?php echo $roomErr; ?> </span>  
-            <br><br>
-            <input type="submit" name="submit" value="Submit">   
-            <br><br>                             
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" > 
+            <div class="grid-container">
+                <div class="grid-item">
+                    <label>Name:</label>
+                </div>
+                <div class="grid-item">
+                    <input type="text" name="name" placeholder="Enter Name">  
+                    <span class="error">* <?php echo $nameErr; ?> </span>  
+                </div>
+                <div class="grid-item">
+                <label>Date of Birth:</label>
+                </div>
+                <div class="grid-item">
+                    <input type="text" name="dob" placeholder="DD/MM/YYYY">  
+                    <span class="error">* <?php echo $dobErr; ?> </span>  
+                </div>   
+                <div class="grid-item">
+                <label>Gender:</label>
+                </div>
+                <div class="grid-item">
+                    <input type="radio" name="gender" value="M"> Male  
+                    <input type="radio" name="gender" value="F"> Female  
+                    <span class="error">* <?php echo $genderErr; ?> </span>  
+                </div>
+                <div class="grid-item">
+                <label>Room Number:</label>
+                </div>
+                <div class="grid-item">
+                    <input type="text" name="room" placeholder="Enter Room Number">  
+                    <span class="error">* <?php echo $roomErr; ?> </span>  
+                </div>
+                <div class="grid-item">
+                    <input type="submit" name="submit" value="Submit">   
+                </div>
+            </div>
         </form>
     
         <?php  
             if (isset($_POST['submit'])) {  
                 if ($nameErr == "" && $genderErr == "" && $dobErr == "" && $roomErr == "") {  
-                    $conn = odbc_connect('z5256089','','',SQL_CUR_USE_ODBC);
+                    $conn = odbc_connect('z5209691','','',SQL_CUR_USE_ODBC);
                     
                     $sql = "SELECT * FROM Patient where PatientName = '$name' AND DOB = #$dobFormat#";
                     echo odbc_errormsg($conn);

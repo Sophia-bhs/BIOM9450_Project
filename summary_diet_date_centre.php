@@ -11,7 +11,7 @@
 <?php
     function ODBC_Results_Data_Diet($res, $sTable, $sRow){
         $cFields = odbc_num_fields($res);
-        $strTable = "<table class='styled-table' $sTable ><tr>"; 
+        $strTable = "<table class='summary-styled-table' $sTable ><tr>"; 
         for ($n=1; $n<=$cFields; $n++){
             $strTable .= "<td $sRow><b>".odbc_field_name($res, $n)."</b></td>";
         }
@@ -64,7 +64,7 @@
                 $inputDate = $today = date("Y/m/d");
                 $date = date_create($today);
                 $patientNameDiet = "ALL";
-                $conn = odbc_connect('z5256089','' ,'' ,SQL_CUR_USE_ODBC); 
+                $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
                 if (!$conn) {
                     odbc_close($conn);
                     exit("Connection Failed: ".odbc_errormsg());
