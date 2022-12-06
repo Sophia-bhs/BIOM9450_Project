@@ -9,14 +9,6 @@
 </head>
 
 <body bgcolor="#E7FBFC">
-    <?php
-        session_start();
-        if($_SESSION['status']!="Active") {
-            header("location:index.php");
-        }
-        $PracID = $_SESSION['PracID'];
-        $PracName = $_SESSION['PracName'];
-    ?>
     <div class="PatientMedAd" id="header">
         <h1>
             Patient Med Administration

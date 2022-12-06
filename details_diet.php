@@ -9,14 +9,6 @@
 </head>
 
 <body bgcolor="#E7FBFC">
-    <?php
-        session_start();
-        if($_SESSION['status']!="Active") {
-            header("location:index.php");
-        }
-        $PracID = $_SESSION['PracID'];
-        $PracName = $_SESSION['PracName'];
-    ?>
     <div class="PatientMedAd" id="header">
         <h1>
             Patient Med Administration
@@ -34,7 +26,7 @@
             // ID of Patient selected
             $id = (int) $_GET['id'];
             
-            $conn = odbc_connect('z5256089','' ,'' ,SQL_CUR_USE_ODBC); 
+            $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
                 odbc_close($conn);
                 exit("Connection Failed: ".odbc_errormsg());
