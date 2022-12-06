@@ -14,9 +14,9 @@
         if($_SESSION['status']!="Active") {
             header("location:index.php");
         }
-        $PracID = $_SESSION['PracID'];
         $PracName = $_SESSION['PracName'];
     ?>
+    <!-- Display Practitioner name and logout option -->
     <div id="footer">
         <div class="PracName">
             <?php
