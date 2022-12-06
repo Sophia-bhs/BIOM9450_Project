@@ -76,3 +76,44 @@ div#wrap_list h1 {
 	margin-bottom: 30px;
 	margin-left: 20px;
 }
+
+.home-styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 80%;
+}
+
+.home-styled-table thead tr {
+    background-color: #981700;
+    color: #ffffff;
+    text-align: left;
+}
+
+.home-styled-table th,
+.home-styled-table td {
+    padding: 12px 15px;
+}
+
+.home-styled-table tbody tr {
+    border-bottom: 1px solid #4389aa;
+}
+
+.home-styled-table tbody tr {
+    background-color: #ebebeb00;
+}
+
+.home-styled-table tr:first-child{
+    background:rgb(177, 177, 196);
+}
+
+.home-styled-table tbody tr:nth-of-type(even) {
+    background-color: #ffffff;
+}
+
+.home-styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}

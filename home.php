@@ -143,7 +143,17 @@
                 $rs  = odbc_exec($conn, $sql);
 
                 echo "<h2>Medication Administration:</h2>"; 
-                echo "<table class='styled-table'>
+                echo "<table class='home-styled-table'>
+                <colgroup>
+                    <col span='1' style='width: 10%;'>
+                    <col span='1' style='width: 20%;'>
+                    <col span='1' style='width: 20%;'>
+                    <col span='1' style='width: 20%;'>
+                    <col span='1' style='width: 10%;'>
+                    <col span='1' style='width: 10%;'>
+                    <col span='1' style='width: 10%;'>
+                </colgroup>
+                <tbody>
                 <tr>
                 <th>ID</th>
                 <th>PatientID</th>
@@ -182,6 +192,7 @@
                     }
                     echo "</tr>";
                 }
+                echo "</tbody>";
                 echo "</table>";
             
                 //Diet
@@ -191,7 +202,16 @@
                 $rs  = odbc_exec($conn, $sql);
                 echo odbc_errormsg($conn);
                 echo "<h2>Diet Administration:</h2>"; 
-                echo "<table class='styled-table'>
+                echo "<table class='home-styled-table'>
+                <colgroup>
+                    <col span='1' style='width: 10%;'>
+                    <col span='1' style='width: 20%;'>
+                    <col span='1' style='width: 20%;'>
+                    <col span='1' style='width: 20%;'>
+                    <col span='1' style='width: 10%;'>
+                    <col span='1' style='width: 10%;'>
+                    <col span='1' style='width: 10%;'>
+                </colgroup>
                 <tr>
                 <th>ID</th>
                 <th>PatientID</th>
