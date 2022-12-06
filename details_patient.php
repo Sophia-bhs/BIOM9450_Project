@@ -33,7 +33,7 @@
             // ID of Patient selected
             $id = (int) $_GET['id'];
             
-            $conn = odbc_connect('z5256089','' ,'' ,SQL_CUR_USE_ODBC); 
+            $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
                 odbc_close($conn);
                 exit("Connection Failed: ".odbc_errormsg());
@@ -45,6 +45,7 @@
             echo "<table class='styled-table'>
             <tr>
             <th>ID</th>
+            <th>Picture</th>
             <th>Patient Name</th>
             <th>Age</th>
             <th>Gender</th>
@@ -54,6 +55,7 @@
             while($row = odbc_fetch_array($rs)) {
                 echo "<tr>";
                 echo "<td>" . $row['ID']. "</td>";
+                echo "<td><img src=" .$row['Picture']. " alt=\"Patient Image\" width=\"150\" height=\"200\"></td>";
                 echo "<td>" . $row['PatientName']. "</td>";
                 echo "<td>" . $row['Age']. "</td>";
                 echo "<td>" . $row['Gender']. "</td>";

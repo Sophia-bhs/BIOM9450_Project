@@ -31,7 +31,7 @@
     </div>
     <?php
         // define variables to empty values and defalt values
-        $conn = odbc_connect('z5256089','' ,'' ,SQL_CUR_USE_ODBC); 
+        $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
         if (!$conn) {
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
@@ -118,8 +118,7 @@
         </div>
 
         <div id="extra">
-            <p><strong>Patient Info</strong></p>
-            <!-- <h3><img src="stickman.jpg" alt="Patient Image" width="150" height="200"></h3> -->
+            <h2><strong>Patient Info</strong></h2>
             <ul>
                 <?php
                     if (!$conn) {
@@ -132,7 +131,7 @@
                     echo odbc_errormsg($conn);
 
                     while($row = odbc_fetch_array($rs)) {
-                        echo "<h3><img src=" .$row['Picture']. " alt=\"Patient Image\" width=\"150\" height=\"200\"></h3>";
+                        echo "<img src=" .$row['Picture']. " alt=\"Patient Image\" width=\"150\" height=\"200\">";
                         echo "<li>" . $row['PatientName']. "</li>";
                         echo "<li>ID: " . $row['ID']. "</li>";
                         echo "<li>Age: " . $row['Age']. "</li>";
@@ -141,12 +140,13 @@
                         echo "<li>Room Number: " . $row['RoomNumber']. "</li>";
                     }
                 ?>
+                <li>
+                    <form id="editInfo" action="edit_info.php" method="post">
+                        <input type="hidden" name="patientID" value="<?php echo $patientID; ?>">
+                        <input type="submit" name="editInfo" value="Edit">
+                    </form>
+                </li>
             </ul>
-            <form id="editInfo" action="edit_info.php" method="post">
-                <input type="hidden" name="patientID" value="<?php echo $patientID; ?>">
-                <input type="submit" name="editInfo" value="Edit">
-                
-            </form>
         </div>
 
         <div id="content">
