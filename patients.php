@@ -32,7 +32,7 @@
         <h1> Patients </h1>
         <div id="wrap_list">
             <?php
-                $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
+                $conn = odbc_connect('z5256089','' ,'' ,SQL_CUR_USE_ODBC); 
                 if (!$conn) {
                     odbc_close($conn);
                     exit("Connection Failed: ".odbc_errormsg());
