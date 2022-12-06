@@ -59,8 +59,8 @@
         </h1>
         <div id="wrap_list">
             <?php  
-                // define variables to empty values and defalt values
-                $today = date("Y/m/d");
+                $patientName = "ALL";
+                $inputDate = $today = date("Y/m/d");
                 $date = date_create($today);
                 $patientNameMed = "ALL";
                 $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
@@ -69,10 +69,14 @@
                     exit("Connection Failed: ".odbc_errormsg());
                 }
                 if(isset($_POST['submitsMed'])){ //check if form was submitted
-                    $inputDate = $_POST['centreDate']; //get input text
+                    $_SESSION['centreDateMed'] = $inputDate = $_POST['centreDate']; //get input text
                     $date = date_create($inputDate);
-                    $patientNameMed = $_POST['patientNameMed'];
+                    $_SESSION['patientNameMed'] = $patientName = $_POST['patientNameMed'];
                     $pracName = $_POST['pracName'];
+                }
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $inputDate = $_SESSION["centreDateMed"];
+                    $patientName = $_SESSION["patientNameMed"];  
                 }
                 $date1 = clone date_sub($date, date_interval_create_from_date_string("3 days"));
                 $date2 = clone date_add($date, date_interval_create_from_date_string("1 days"));
@@ -88,7 +92,7 @@
                         <label>Centre By:</label>
                     </div>
                     <div class="grid-item">
-                        <input type="date" name="centreDate" min='2022-01-01' max='2025-12-31'>
+                        <input type="date" name="centreDate" min='2022-01-01' max='2025-12-31' value="<?php echo date('Y-m-d', strtotime($inputDate)); ?>">
                     </div>
                     <div class="grid-item">
                         <label for="patientNameMed">Select Patient:</label>

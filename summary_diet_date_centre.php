@@ -60,7 +60,8 @@
         <div id="wrap_list">
             <?php  
                 // define variables to empty values and defalt values
-                $today = date("Y/m/d");
+                $patientName = "ALL";
+                $inputDate = $today = date("Y/m/d");
                 $date = date_create($today);
                 $patientNameDiet = "ALL";
                 $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
@@ -69,10 +70,14 @@
                     exit("Connection Failed: ".odbc_errormsg());
                 }
                 if(isset($_POST['submitDiet'])){ //check if form was submitted
-                    $inputDate = $_POST['centreDate']; //get input text
+                    $_SESSION['centreDate'] = $inputDate = $_POST['centreDate']; //get input text
                     $date = date_create($inputDate);
-                    $patientNameDiet = $_POST['patientNameDiet'];
+                    $_SESSION['patientNameDiet'] = $patientNameDiet = $_POST['patientNameDiet'];
                     $pracName = $_POST['pracName'];
+                }
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $inputDate = $_SESSION["centreDate"];
+                    $patientName = $_SESSION["patientNameDiet"];  
                 }
                 $date1 = clone date_sub($date, date_interval_create_from_date_string("3 days"));
                 $date2 = clone date_add($date, date_interval_create_from_date_string("1 days"));
@@ -82,13 +87,13 @@
                 $date6 = clone date_add($date, date_interval_create_from_date_string("1 days"));
                 $date7 = clone date_add($date, date_interval_create_from_date_string("1 days"));
             ?>
-            <form id="chooseDate" method="post">
+            <form id="chooseDate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="grid-container">
                     <div class="grid-item">
                         <label>Centre By:</label>
                     </div>
                     <div class="grid-item">
-                        <input type="date" name="centreDate" min='2022-01-01' max='2025-12-31'>
+                        <input type="date" name="centreDate" min='2022-01-01' max='2025-12-31' value="<?php echo date('Y-m-d', strtotime($inputDate)); ?>">
                     </div>
                     <div class="grid-item">
                         <label for="patientNameDiet">Select Patient:</label>
