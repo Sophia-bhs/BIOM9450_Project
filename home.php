@@ -117,7 +117,38 @@
             </form>
         </div>
 
-        
+        <div id="extra">
+            <p><strong>Patient Info</strong></p>
+            <!-- <h3><img src="stickman.jpg" alt="Patient Image" width="150" height="200"></h3> -->
+            <ul>
+                <?php
+                    if (!$conn) {
+                        odbc_close($conn);
+                        exit("Connection Failed: ".odbc_errormsg());
+                    }
+                    echo odbc_errormsg($conn);
+                    $sql = "SELECT * FROM Patient where ID = $patientID";
+                    $rs  = odbc_exec($conn,$sql);  
+                    echo odbc_errormsg($conn);
+
+                    while($row = odbc_fetch_array($rs)) {
+                        echo "<h3><img src=" .$row['Picture']. " alt=\"Patient Image\" width=\"150\" height=\"200\"></h3>";
+                        echo "<li>" . $row['PatientName']. "</li>";
+                        echo "<li>ID: " . $row['ID']. "</li>";
+                        echo "<li>Age: " . $row['Age']. "</li>";
+                        echo "<li>Gender: " . $row['Gender']. "</li>";
+                        echo "<li>DOB: " . date('Y-m-d', strtotime($row['DOB'])). "</li>";
+                        echo "<li>Room Number: " . $row['RoomNumber']. "</li>";
+                    }
+                ?>
+            </ul>
+            <form id="editInfo" action="edit_info.php" method="post">
+                <input type="hidden" name="patientID" value="<?php echo $patientID; ?>">
+                <input type="submit" name="editInfo" value="Edit">
+                
+            </form>
+        </div>
+
         <div id="content">
             <?php  
                 if(isset($_POST['medEdit'])) {
@@ -286,38 +317,9 @@
                 echo "</table>";
             ?>  
         </div>
-    </div>
 
-    <div id="extra">
-        <p><strong>Patient Info</strong></p>
-        <!-- <h3><img src="stickman.jpg" alt="Patient Image" width="150" height="200"></h3> -->
-        <ul>
-            <?php
-                if (!$conn) {
-                    odbc_close($conn);
-                    exit("Connection Failed: ".odbc_errormsg());
-                }
-                echo odbc_errormsg($conn);
-                $sql = "SELECT * FROM Patient where ID = $patientID";
-                $rs  = odbc_exec($conn,$sql);  
-                echo odbc_errormsg($conn);
 
-                while($row = odbc_fetch_array($rs)) {
-                    echo "<h3><img src=" .$row['Picture']. " alt=\"Patient Image\" width=\"150\" height=\"200\"></h3>";
-                    echo "<li>" . $row['PatientName']. "</li>";
-                    echo "<li>ID: " . $row['ID']. "</li>";
-                    echo "<li>Age: " . $row['Age']. "</li>";
-                    echo "<li>Gender: " . $row['Gender']. "</li>";
-                    echo "<li>DOB: " . date('Y-m-d', strtotime($row['DOB'])). "</li>";
-                    echo "<li>Room Number: " . $row['RoomNumber']. "</li>";
-                }
-            ?>
-        </ul>
-        <form id="editInfo" action="edit_info.php" method="post">
-            <input type="hidden" name="patientID" value="<?php echo $patientID; ?>">
-            <input type="submit" name="editInfo" value="Edit">
-            
-        </form>
+        
     </div>
     <div id="Footer">
         <?php
