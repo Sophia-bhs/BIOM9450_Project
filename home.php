@@ -192,8 +192,12 @@
                     }
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['MedDate'])) . "</td>";
-                    $time = explode(' ', $row['MedTime']);
-                    echo "<td>" . $time[1] . "</td>";
+                    if (isset($row['MedTime'])) {
+                        $time = explode(' ', $row['MedTime']);
+                        echo "<td>" . $time[1] . "</td>";
+                    } else {
+                        echo "<td>-</td>";
+                    }
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
@@ -256,8 +260,12 @@
                     // echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['DietDate'])) . "</td>";
-                    $time = explode(' ', $row['DietTime']);
-                    echo "<td>" . $time[1] . "</td>";
+                    if (isset($row['MedTime'])) {
+                        $time = explode(' ', $row['DietTime']);
+                        echo "<td>" . $time[1] . "</td>";
+                    } else {
+                        echo "<td>-</td>";
+                    }
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
