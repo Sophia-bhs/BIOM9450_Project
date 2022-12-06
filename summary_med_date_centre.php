@@ -171,20 +171,20 @@
                     $pracID = odbc_result($pracIDRs,1);
                     $summaryQuery="SELECT P.PatientName AS [Patient], M.MedName AS Medication, 
                     M.Dosage AS Dosage, M.Route AS Route, MA.Round AS Round, 
-                    IIf([P1.Name] Is Null,'N/A',[P1.Name]) AS [$date1Name Practitioner], 
-                    IIf([D1.Status] Is Null,'N/A',[D1.Status]) AS [$date1Name Status], 
-                    IIf([P2.Name] Is Null,'N/A',[P2.Name]) AS [$date2Name Practitioner], 
-                    IIf([D2.Status] Is Null,'N/A',[D2.Status]) AS [$date2Name Status], 
-                    IIf([P3.Name] Is Null,'N/A',[P3.Name]) AS [$date3Name Practitioner], 
-                    IIf([D3.Status] Is Null,'N/A',[D3.Status]) AS [$date3Name Status], 
-                    IIf([P4.Name] Is Null,'N/A',[P4.Name]) AS [$date4Name Practitioner], 
-                    IIf([D4.Status] Is Null,'N/A',[D4.Status]) AS [$date4Name Status], 
-                    IIf([P5.Name] Is Null,'N/A',[P5.Name]) AS [$date5Name Practitioner], 
-                    IIf([D5.Status] Is Null,'N/A',[D5.Status]) AS [$date5Name Status], 
-                    IIf([P6.Name] Is Null,'N/A',[P6.Name]) AS [$date6Name Practitioner], 
-                    IIf([D6.Status] Is Null,'N/A',[D6.Status]) AS [$date6Name Status], 
-                    IIf([P7.Name] Is Null,'N/A',[P7.Name]) AS [$date7Name Practitioner], 
-                    IIf([D7.Status] Is Null,'N/A',[D7.Status]) AS [$date7Name Status]
+                    IIf([P1.Name] Is Null,'$placeholder',[P1.Name]) AS [$date1Name Practitioner], 
+                    IIf([D1.Status] Is Null,'$placeholder',[D1.Status]) AS [$date1Name Status], 
+                    IIf([P2.Name] Is Null,'$placeholder',[P2.Name]) AS [$date2Name Practitioner], 
+                    IIf([D2.Status] Is Null,'$placeholder',[D2.Status]) AS [$date2Name Status], 
+                    IIf([P3.Name] Is Null,'$placeholder',[P3.Name]) AS [$date3Name Practitioner], 
+                    IIf([D3.Status] Is Null,'$placeholder',[D3.Status]) AS [$date3Name Status], 
+                    IIf([P4.Name] Is Null,'$placeholder',[P4.Name]) AS [$date4Name Practitioner], 
+                    IIf([D4.Status] Is Null,'$placeholder',[D4.Status]) AS [$date4Name Status], 
+                    IIf([P5.Name] Is Null,'$placeholder',[P5.Name]) AS [$date5Name Practitioner], 
+                    IIf([D5.Status] Is Null,'$placeholder',[D5.Status]) AS [$date5Name Status], 
+                    IIf([P6.Name] Is Null,'$placeholder',[P6.Name]) AS [$date6Name Practitioner], 
+                    IIf([D6.Status] Is Null,'$placeholder',[D6.Status]) AS [$date6Name Status], 
+                    IIf([P7.Name] Is Null,'$placeholder',[P7.Name]) AS [$date7Name Practitioner], 
+                    IIf([D7.Status] Is Null,'$placeholder',[D7.Status]) AS [$date7Name Status]
                     FROM ((((((((((((((((SELECT DISTINCT PatientID, MedID, Round FROM MedAdministration) AS MA 
                     INNER JOIN Patient AS P ON MA.PatientID = P.ID) 
                     INNER JOIN Medication AS M ON MA.MedID = M.ID) 
@@ -218,20 +218,20 @@
                 elseif($patientNameMed=="ALL" AND $pracName=="ALL") {
                     $summaryQuery="SELECT P.PatientName AS [Patient], M.MedName AS Medication, 
                     M.Dosage AS Dosage, M.Route AS Route, MA.Round AS Round, 
-                    IIf([P1.Name] Is Null,'N/A',[P1.Name]) AS [$date1Name Practitioner], 
-                    IIf([D1.Status] Is Null,'N/A',[D1.Status]) AS [$date1Name Status], 
-                    IIf([P2.Name] Is Null,'N/A',[P2.Name]) AS [$date2Name Practitioner], 
-                    IIf([D2.Status] Is Null,'N/A',[D2.Status]) AS [$date2Name Status], 
-                    IIf([P3.Name] Is Null,'N/A',[P3.Name]) AS [$date3Name Practitioner], 
-                    IIf([D3.Status] Is Null,'N/A',[D3.Status]) AS [$date3Name Status], 
-                    IIf([P4.Name] Is Null,'N/A',[P4.Name]) AS [$date4Name Practitioner], 
-                    IIf([D4.Status] Is Null,'N/A',[D4.Status]) AS [$date4Name Status], 
-                    IIf([P5.Name] Is Null,'N/A',[P5.Name]) AS [$date5Name Practitioner], 
-                    IIf([D5.Status] Is Null,'N/A',[D5.Status]) AS [$date5Name Status], 
-                    IIf([P6.Name] Is Null,'N/A',[P6.Name]) AS [$date6Name Practitioner], 
-                    IIf([D6.Status] Is Null,'N/A',[D6.Status]) AS [$date6Name Status], 
-                    IIf([P7.Name] Is Null,'N/A',[P7.Name]) AS [$date7Name Practitioner], 
-                    IIf([D7.Status] Is Null,'N/A',[D7.Status]) AS [$date7Name Status]
+                    IIf([P1.Name] Is Null,'$placeholder',[P1.Name]) AS [$date1Name Practitioner], 
+                    IIf([D1.Status] Is Null,'$placeholder',[D1.Status]) AS [$date1Name Status], 
+                    IIf([P2.Name] Is Null,'$placeholder',[P2.Name]) AS [$date2Name Practitioner], 
+                    IIf([D2.Status] Is Null,'$placeholder',[D2.Status]) AS [$date2Name Status], 
+                    IIf([P3.Name] Is Null,'$placeholder',[P3.Name]) AS [$date3Name Practitioner], 
+                    IIf([D3.Status] Is Null,'$placeholder',[D3.Status]) AS [$date3Name Status], 
+                    IIf([P4.Name] Is Null,'$placeholder',[P4.Name]) AS [$date4Name Practitioner], 
+                    IIf([D4.Status] Is Null,'$placeholder',[D4.Status]) AS [$date4Name Status], 
+                    IIf([P5.Name] Is Null,'$placeholder',[P5.Name]) AS [$date5Name Practitioner], 
+                    IIf([D5.Status] Is Null,'$placeholder',[D5.Status]) AS [$date5Name Status], 
+                    IIf([P6.Name] Is Null,'$placeholder',[P6.Name]) AS [$date6Name Practitioner], 
+                    IIf([D6.Status] Is Null,'$placeholder',[D6.Status]) AS [$date6Name Status], 
+                    IIf([P7.Name] Is Null,'$placeholder',[P7.Name]) AS [$date7Name Practitioner], 
+                    IIf([D7.Status] Is Null,'$placeholder',[D7.Status]) AS [$date7Name Status]
                     FROM ((((((((((((((((SELECT DISTINCT PatientID, MedID, Round FROM MedAdministration) AS MA 
                     INNER JOIN Patient AS P ON MA.PatientID = P.ID) 
                     INNER JOIN Medication AS M ON MA.MedID = M.ID) 
@@ -267,20 +267,20 @@
                     $pracID = odbc_result($pracIDRs,1);
                     $summaryQuery="SELECT P.PatientName AS [Patient], M.MedName AS Medication, 
                     M.Dosage AS Dosage, M.Route AS Route, MA.Round AS Round, 
-                    IIf([P1.Name] Is Null,'N/A',[P1.Name]) AS [$date1Name Practitioner], 
-                    IIf([D1.Status] Is Null,'N/A',[D1.Status]) AS [$date1Name Status], 
-                    IIf([P2.Name] Is Null,'N/A',[P2.Name]) AS [$date2Name Practitioner], 
-                    IIf([D2.Status] Is Null,'N/A',[D2.Status]) AS [$date2Name Status], 
-                    IIf([P3.Name] Is Null,'N/A',[P3.Name]) AS [$date3Name Practitioner], 
-                    IIf([D3.Status] Is Null,'N/A',[D3.Status]) AS [$date3Name Status], 
-                    IIf([P4.Name] Is Null,'N/A',[P4.Name]) AS [$date4Name Practitioner], 
-                    IIf([D4.Status] Is Null,'N/A',[D4.Status]) AS [$date4Name Status], 
-                    IIf([P5.Name] Is Null,'N/A',[P5.Name]) AS [$date5Name Practitioner], 
-                    IIf([D5.Status] Is Null,'N/A',[D5.Status]) AS [$date5Name Status], 
-                    IIf([P6.Name] Is Null,'N/A',[P6.Name]) AS [$date6Name Practitioner], 
-                    IIf([D6.Status] Is Null,'N/A',[D6.Status]) AS [$date6Name Status], 
-                    IIf([P7.Name] Is Null,'N/A',[P7.Name]) AS [$date7Name Practitioner], 
-                    IIf([D7.Status] Is Null,'N/A',[D7.Status]) AS [$date7Name Status]
+                    IIf([P1.Name] Is Null,'$placeholder',[P1.Name]) AS [$date1Name Practitioner], 
+                    IIf([D1.Status] Is Null,'$placeholder',[D1.Status]) AS [$date1Name Status], 
+                    IIf([P2.Name] Is Null,'$placeholder',[P2.Name]) AS [$date2Name Practitioner], 
+                    IIf([D2.Status] Is Null,'$placeholder',[D2.Status]) AS [$date2Name Status], 
+                    IIf([P3.Name] Is Null,'$placeholder',[P3.Name]) AS [$date3Name Practitioner], 
+                    IIf([D3.Status] Is Null,'$placeholder',[D3.Status]) AS [$date3Name Status], 
+                    IIf([P4.Name] Is Null,'$placeholder',[P4.Name]) AS [$date4Name Practitioner], 
+                    IIf([D4.Status] Is Null,'$placeholder',[D4.Status]) AS [$date4Name Status], 
+                    IIf([P5.Name] Is Null,'$placeholder',[P5.Name]) AS [$date5Name Practitioner], 
+                    IIf([D5.Status] Is Null,'$placeholder',[D5.Status]) AS [$date5Name Status], 
+                    IIf([P6.Name] Is Null,'$placeholder',[P6.Name]) AS [$date6Name Practitioner], 
+                    IIf([D6.Status] Is Null,'$placeholder',[D6.Status]) AS [$date6Name Status], 
+                    IIf([P7.Name] Is Null,'$placeholder',[P7.Name]) AS [$date7Name Practitioner], 
+                    IIf([D7.Status] Is Null,'$placeholder',[D7.Status]) AS [$date7Name Status]
                     FROM ((((((((((((((((SELECT DISTINCT PatientID, MedID, Round FROM MedAdministration) AS MA 
                     INNER JOIN Patient AS P ON MA.PatientID = P.ID) 
                     INNER JOIN Medication AS M ON MA.MedID = M.ID) 
@@ -313,20 +313,20 @@
                 else{
                     $summaryQuery="SELECT P.PatientName AS [Patient], M.MedName AS Medication, 
                     M.Dosage AS Dosage, M.Route AS Route, MA.Round AS Round, 
-                    IIf([P1.Name] Is Null,'N/A',[P1.Name]) AS [$date1Name Practitioner], 
-                    IIf([D1.Status] Is Null,'N/A',[D1.Status]) AS [$date1Name Status], 
-                    IIf([P2.Name] Is Null,'N/A',[P2.Name]) AS [$date2Name Practitioner], 
-                    IIf([D2.Status] Is Null,'N/A',[D2.Status]) AS [$date2Name Status], 
-                    IIf([P3.Name] Is Null,'N/A',[P3.Name]) AS [$date3Name Practitioner], 
-                    IIf([D3.Status] Is Null,'N/A',[D3.Status]) AS [$date3Name Status], 
-                    IIf([P4.Name] Is Null,'N/A',[P4.Name]) AS [$date4Name Practitioner], 
-                    IIf([D4.Status] Is Null,'N/A',[D4.Status]) AS [$date4Name Status], 
-                    IIf([P5.Name] Is Null,'N/A',[P5.Name]) AS [$date5Name Practitioner], 
-                    IIf([D5.Status] Is Null,'N/A',[D5.Status]) AS [$date5Name Status], 
-                    IIf([P6.Name] Is Null,'N/A',[P6.Name]) AS [$date6Name Practitioner], 
-                    IIf([D6.Status] Is Null,'N/A',[D6.Status]) AS [$date6Name Status], 
-                    IIf([P7.Name] Is Null,'N/A',[P7.Name]) AS [$date7Name Practitioner], 
-                    IIf([D7.Status] Is Null,'N/A',[D7.Status]) AS [$date7Name Status]
+                    IIf([P1.Name] Is Null,'$placeholder',[P1.Name]) AS [$date1Name Practitioner], 
+                    IIf([D1.Status] Is Null,'$placeholder',[D1.Status]) AS [$date1Name Status], 
+                    IIf([P2.Name] Is Null,'$placeholder',[P2.Name]) AS [$date2Name Practitioner], 
+                    IIf([D2.Status] Is Null,'$placeholder',[D2.Status]) AS [$date2Name Status], 
+                    IIf([P3.Name] Is Null,'$placeholder',[P3.Name]) AS [$date3Name Practitioner], 
+                    IIf([D3.Status] Is Null,'$placeholder',[D3.Status]) AS [$date3Name Status], 
+                    IIf([P4.Name] Is Null,'$placeholder',[P4.Name]) AS [$date4Name Practitioner], 
+                    IIf([D4.Status] Is Null,'$placeholder',[D4.Status]) AS [$date4Name Status], 
+                    IIf([P5.Name] Is Null,'$placeholder',[P5.Name]) AS [$date5Name Practitioner], 
+                    IIf([D5.Status] Is Null,'$placeholder',[D5.Status]) AS [$date5Name Status], 
+                    IIf([P6.Name] Is Null,'$placeholder',[P6.Name]) AS [$date6Name Practitioner], 
+                    IIf([D6.Status] Is Null,'$placeholder',[D6.Status]) AS [$date6Name Status], 
+                    IIf([P7.Name] Is Null,'$placeholder',[P7.Name]) AS [$date7Name Practitioner], 
+                    IIf([D7.Status] Is Null,'$placeholder',[D7.Status]) AS [$date7Name Status]
                     FROM ((((((((((((((((SELECT DISTINCT PatientID, MedID, Round FROM MedAdministration) AS MA 
                     INNER JOIN Patient AS P ON MA.PatientID = P.ID) 
                     INNER JOIN Medication AS M ON MA.MedID = M.ID) 
