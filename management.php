@@ -73,7 +73,6 @@
                 $dobObj = date_create($dobFormat);
                 $diff = date_diff($dobObj, $today);
                 $age = $diff->format("%Y");
-                echo $age;
             }
         }
 
@@ -158,7 +157,7 @@
                     echo odbc_errormsg($conn);
 
                     echo "<h3 color = #FF0001> <b>You have sucessfully registered.</b> </h3>";  
-                    echo "<h2>Your Input:</h2>";  
+                    echo "<h2>New patient added:</h2>";  
                     echo "Name: " .$name;  
                     echo "<br>";  
                     echo "Gender: " .$gender;
