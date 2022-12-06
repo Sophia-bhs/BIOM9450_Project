@@ -251,11 +251,11 @@
                         echo "<td>-</td>";
                     }
                     $dietID = $row['DietID'];
-                    $sql = "SELECT DietName, Amount FROM Diet WHERE ID = $dietID";
+                    $sql = "SELECT DietName, [Amount/Day] FROM Diet WHERE ID = $dietID";
                     $dietNameQ  = odbc_exec($conn, $sql);
                     while($rowDiet = odbc_fetch_array($dietNameQ)) {
                         echo "<td>" . $rowDiet['DietName'] . "</td>";
-                        echo "<td>" . $rowDiet['Amount'] . "</td>";
+                        echo "<td>" . $rowDiet['Amount/Day'] . "</td>";
                     }
                     // echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";

@@ -56,7 +56,7 @@
                 echo "<tr>";
                 echo "<td>" . $row['ID']. "</td>";
                 echo "<td>" . $row['DietName']. "</td>";
-                echo "<td>" . $row['Amount']. "</td>";
+                echo "<td>" . $row['Amount/Day']. "</td>";
                 
                 if ($row['Round1'] == 1) {
                     echo "<td>Recommended</td>";
