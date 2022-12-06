@@ -158,9 +158,11 @@
                 echo "<table class='styled-table'>
                 <tr>
                 <th>ID</th>
-                <th>PatientID</th>
+                <th>Patient</th>
                 <th>Practitioner</th>
-                <th>MedID</th>
+                <th>Name</th>
+                <th>Dosage</th>
+                <th>Route</th>
                 <th>Round</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -169,13 +171,25 @@
                 while($row = odbc_fetch_array($rs)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
-                    echo "<td>" . $row['PatientID'] . "</td>";
+                    echo "<td>" . $patientName . "</td>";
                     if (isset($row['PractitionerID'])) {
-                        echo "<td>" . $row['PractitionerID'] . "</td>";
+                        $pID = $row['PractitionerID'];
+                        $sql = "SELECT Name FROM Practitioner WHERE ID = $pID";
+                        $pracNameQ  = odbc_exec($conn, $sql);
+                        while($rowMed = odbc_fetch_array($pracNameQ)) {
+                            echo "<td>" . $rowMed['Name'] . "</td>";
+                        }
                     } else {
                         echo "<td>-</td>";
                     }
-                    echo "<td>" . $row['MedID'] . "</td>";
+                    $medID = $row['MedID'];
+                    $sql = "SELECT MedName, Dosage, Route FROM Medication WHERE ID = $medID";
+                    $medNameQ  = odbc_exec($conn, $sql);
+                    while($rowMed = odbc_fetch_array($medNameQ)) {
+                        echo "<td>" . $rowMed['MedName'] . "</td>";
+                        echo "<td>" . $rowMed['Dosage'] . "</td>";
+                        echo "<td>" . $rowMed['Route'] . "</td>";
+                    }
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['MedDate'])) . "</td>";
                     $time = explode(' ', $row['MedTime']);
@@ -209,9 +223,10 @@
                 echo "<table class='styled-table'>
                 <tr>
                 <th>ID</th>
-                <th>PatientID</th>
+                <th>Patient</th>
                 <th>Practitioner</th>
-                <th>DietID</th>
+                <th>Name</th>
+                <th>Amount</th>
                 <th>Round</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -220,13 +235,25 @@
                 while($row = odbc_fetch_array($rs)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
-                    echo "<td>" . $row['PatientID'] . "</td>";
+                    echo "<td>" . $patientName . "</td>";
                     if (isset($row['PractitionerID'])) {
-                        echo "<td>" . $row['PractitionerID'] . "</td>";
+                        $pID = $row['PractitionerID'];
+                        $sql = "SELECT Name FROM Practitioner WHERE ID = $pID";
+                        $pracNameQ  = odbc_exec($conn, $sql);
+                        while($rowMed = odbc_fetch_array($pracNameQ)) {
+                            echo "<td>" . $rowMed['Name'] . "</td>";
+                        }
                     } else {
                         echo "<td>-</td>";
                     }
-                    echo "<td>" . $row['DietID'] . "</td>";
+                    $dietID = $row['DietID'];
+                    $sql = "SELECT DietName, Amount FROM Diet WHERE ID = $dietID";
+                    $dietNameQ  = odbc_exec($conn, $sql);
+                    while($rowDiet = odbc_fetch_array($dietNameQ)) {
+                        echo "<td>" . $rowDiet['DietName'] . "</td>";
+                        echo "<td>" . $rowDiet['Amount'] . "</td>";
+                    }
+                    // echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['DietDate'])) . "</td>";
                     $time = explode(' ', $row['DietTime']);
