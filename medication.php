@@ -9,14 +9,6 @@
 </head>
 
 <body bgcolor="#E7FBFC">
-    <?php
-        session_start();
-        if($_SESSION['status']!="Active") {
-            header("location:index.php");
-        }
-        $PracID = $_SESSION['PracID'];
-        $PracName = $_SESSION['PracName'];
-    ?>
     <div class="PatientMedAd" id="header">
         <h1>
             Patient Med Administration
@@ -29,15 +21,14 @@
     </div>
     <div class="listing">
         <h1>Medication list</h1>
-    
         <div id="wrap_list">
             <?php
-                $conn = odbc_connect('z5256089','' ,'' ,SQL_CUR_USE_ODBC); 
+                $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
                 if (!$conn) {
                     odbc_close($conn);
                     exit("Connection Failed: ".odbc_errormsg());
                 }
-                
+                // Fetch and display all Medication in a table
                 $sql = "SELECT ID, MedName FROM Medication ORDER BY ID";
                 $rs  = odbc_exec($conn,$sql);  
                 ?>
