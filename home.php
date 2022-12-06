@@ -78,19 +78,29 @@
                 <label for="patientName">Patient Name:</label>
                 <select name="patientName" id="patientName">
                 <?php 
-                    // $sql = "SELECT PatientName FROM Patient WHERE ID = (SELECT PatientID from PracPatient WHERE PractitionerID = $pracID) ORDER BY PatientName";
-                    $sql = "SELECT PatientName FROM Patient INNER JOIN PracPatient ON Patient.ID = PracPatient.PatientID WHERE PractitionerID = $pracID ORDER BY PatientName";
-
+                    $sql = "SELECT ID, PatientName FROM Patient ORDER BY PatientName";
                     $rs  = odbc_exec($conn, $sql);
+                    // $sql = "SELECT PatientName FROM Patient INNER JOIN PracPatient ON Patient.ID = PracPatient.PatientID WHERE PractitionerID = $pracID ORDER BY PatientName";
+                    // $caredPatient  = odbc_exec($conn, $sql);
                     $firstPatient = true;
                     while ($row = odbc_fetch_array($rs)) {
+                        $formValue = "";
+                        $pID = $row['ID'];
+                        $sql = "SELECT * FROM PracPatient WHERE PractitionerID = $pracID AND PatientID = $pID";
+                        $caredPatient  = odbc_exec($conn, $sql);
+                        if (odbc_fetch_row($caredPatient)) {
+                            $formValue = $row['PatientName']."*";
+                        } else {
+                            $formValue = $row['PatientName'];
+                        }
+
                         if (isset($patientName) && $patientName == $row['PatientName']) {
-                            echo "<option value='".$row['PatientName']."' selected>".$row['PatientName']."</option>";
+                            echo "<option value='".$row['PatientName']."' selected>".$formValue."</option>";
                         } else if (!isset($patientName) && $firstPatient == true) {
-                            echo "<option value='".$row['PatientName']."' selected>".$row['PatientName']."</option>";
+                            echo "<option value='".$row['PatientName']."' selected>".$formValue."</option>";
                             $firstPatient = false;
                         } else {
-                            echo "<option value='".$row['PatientName']."'>".$row['PatientName']."</option>";
+                            echo "<option value='".$row['PatientName']."'>".$formValue."</option>";
                         }
                     }
                 ?>        
