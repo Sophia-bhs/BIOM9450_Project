@@ -31,13 +31,19 @@
     </div>
     <?php
         // define variables to empty values and defalt values
-        $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
+        $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
         if (!$conn) {
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
         }
-        $patientName = $medStatus = $dietStatus = $medAdminID = $dietAdminID = "";
-        $patientID = 1;
+        $patientName = $patientID = $medStatus = $dietStatus = $medAdminID = $dietAdminID = "";
+        
+        $sql = "SELECT TOP 1 ID, PatientName FROM Patient ORDER BY PatientName";
+        $rs  = odbc_exec($conn, $sql);
+        while ($row = odbc_fetch_array($rs)) {
+            $patientName = $row['PatientName'];
+            $patientID = $row['ID'];
+        }
         $chosenRound = 1;
         $chosenDate = date('Y-m-d');
         $pracID = $_SESSION['PracID'];
