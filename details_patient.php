@@ -24,13 +24,13 @@
         <?php
             // ID of Patient selected
             $id = (int) $_GET['id'];
-            
+            // Establish odbc connection
             $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
                 odbc_close($conn);
                 exit("Connection Failed: ".odbc_errormsg());
             }
-            echo odbc_errormsg($conn);
+            // Fetch and display detailed patient information in a table
             $sql = "SELECT * FROM Patient where ID = $id";
             $rs  = odbc_exec($conn,$sql);  
             echo odbc_errormsg($conn);

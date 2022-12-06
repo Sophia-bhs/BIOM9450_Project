@@ -25,16 +25,16 @@
         <?php
             // ID of Patient selected
             $id = (int) $_GET['id'];
-            
+            // Establish odbc connection
             $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
                 odbc_close($conn);
                 exit("Connection Failed: ".odbc_errormsg());
             }
-            echo odbc_errormsg($conn);
+            // Fetch and display detailed diet information in a table
             $sql = "SELECT * FROM Diet where ID = $id";
             $rs  = odbc_exec($conn,$sql);  
-            echo odbc_errormsg($conn);
+
             echo "<table class='styled-table'>
             <tr>
             <th>ID</th>
@@ -49,7 +49,7 @@
                 echo "<td>" . $row['ID']. "</td>";
                 echo "<td>" . $row['DietName']. "</td>";
                 echo "<td>" . $row['Amount/Day']. "</td>";
-                
+                // Display true/false value in readable text
                 if ($row['Round1'] == 1) {
                     echo "<td>Recommended</td>";
                 } else {
