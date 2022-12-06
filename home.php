@@ -260,7 +260,7 @@
                     // echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('Y-m-d', strtotime($row['DietDate'])) . "</td>";
-                    if (isset($row['MedTime'])) {
+                    if (isset($row['DietTime'])) {
                         $time = explode(' ', $row['DietTime']);
                         echo "<td>" . $time[1] . "</td>";
                     } else {
