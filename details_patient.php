@@ -33,7 +33,7 @@
             // ID of Patient selected
             $id = (int) $_GET['id'];
             
-            $conn = odbc_connect('z5256089','' ,'' ,SQL_CUR_USE_ODBC); 
+            $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
                 odbc_close($conn);
                 exit("Connection Failed: ".odbc_errormsg());
@@ -42,7 +42,15 @@
             $sql = "SELECT * FROM Patient where ID = $id";
             $rs  = odbc_exec($conn,$sql);  
             echo odbc_errormsg($conn);
-            echo "<table class='styled-table'>
+            echo "<table class='details-styled-table'>
+            <colgroup>
+                <col span='1' style='width: 7%;'>
+                <col span='1' style='width: 20%;'>
+                <col span='1' style='width: 13%;'>
+                <col span='1' style='width: 20%;'>
+                <col span='1' style='width: 20%;'>
+                <col span='1' style='width: 20%;'>
+            </colgroup>
             <tr>
             <th>ID</th>
             <th>Patient Name</th>
@@ -57,7 +65,7 @@
                 echo "<td>" . $row['PatientName']. "</td>";
                 echo "<td>" . $row['Age']. "</td>";
                 echo "<td>" . $row['Gender']. "</td>";
-                echo "<td>" . date('Y-m-d', strtotime($row['DOB'])). "</td>";
+                echo "<td>" . date('d/m/Y', strtotime($row['DOB'])). "</td>";
                 echo "<td>" . $row['RoomNumber']. "</td>";
                 echo "</tr>";
             }
