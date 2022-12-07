@@ -184,7 +184,7 @@
                     echo "Room Number : " .$room;
                     echo "<br>";
                 } else {  
-                    echo "<h3> <b>You didn't filled up the form correctly.</b> </h3>";  
+                    echo "<h3> <b>You didn't fill out the form correctly.</b> </h3>";  
                 }  
             } 
         ?>
