@@ -40,16 +40,15 @@
             } else {
                 exit("Request method error");
             }
-            $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
+            $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
                 odbc_close($conn);
                 exit("Connection Failed: ".odbc_errormsg());
             }
-            echo odbc_errormsg($conn);
+            // Fetch and store patient info
             $sql = "SELECT * FROM Patient where ID = $patientID";
             $rs  = odbc_exec($conn,$sql);  
-            echo odbc_errormsg($conn);
-            while($row = odbc_fetch_array($rs)) {
+            while ($row = odbc_fetch_array($rs)) {
                 $patientName = $row['PatientName'];
                 $gender = $row['Gender'];
                 $dob = date('d/m/Y', strtotime($row['DOB']));
@@ -57,18 +56,21 @@
             }
             if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['submit'])) {
                 if (strcmp(trim($patientName),trim($_POST["name"])) != 0) {
-                    // Validate
+                    // Validate Name
                     if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {  
                         $nameErr = "Only alphabets and white space are allowed";  
                     } else {
+                        // Update database
                         $patientName = $_POST["name"];
                         $sql = "UPDATE Patient SET PatientName = '$patientName'
                             WHERE ID = $patientID";
                         $rs  = odbc_exec($conn,$sql);
                     }
                 } 
+                // Validate Gender 
                 if (strcmp(trim($gender),trim($_POST["gender"])) != 0) {
                     if (strcmp('F',trim($_POST["gender"])) == 0 || strcmp('M',trim($_POST["gender"])) == 0) {  
+                        // Update database
                         $gender = $_POST["gender"];
                         $sql = "UPDATE Patient SET Gender = '$gender'
                             WHERE ID = $patientID";
@@ -77,6 +79,7 @@
                         $genderErr = "Gender must be input in format 'F' or 'M'.";  
                     }
                 } 
+                // Validate DOB
                 if (strcmp(trim($dob),trim(trim($_POST["dob"]))) != 0) {
                     if (!preg_match('~^([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})$~', $_POST["dob"], $parts)) {  
                         $dobErr = "The date of birth is not a valid date in the format DD/MM/YYYY";  
@@ -87,6 +90,7 @@
                     } else if ($parts[3] < 1900) {
                         $dobErr = 'The date of birth is invalid.';
                     } else {
+                        // Update database with correct dob format
                         $dob = $_POST["dob"];
                         $today = DateTime::createFromFormat('d/m/Y', date("d/m/Y"));
                         $dobObj = DateTime::createFromFormat('d/m/Y', $dob);
@@ -97,10 +101,12 @@
                         $rs  = odbc_exec($conn,$sql);  
                     }
                 }
+                // Validate room bumber
                 if (strcmp(trim($roomNumber),trim($_POST["roomNumber"])) != 0) {
                     if (!ctype_digit($_POST["roomNumber"])) {  
                         $roomErr = "Only numbers are allowed";  
                     } else {
+                        // Update room number
                         $roomNumber = $_POST["roomNumber"];
                         $sql = "UPDATE Patient SET RoomNumber = '$roomNumber'
                             WHERE ID = $patientID";
@@ -109,6 +115,7 @@
                 }
             }
         ?>
+        <!-- Patient info edit form with prefilled value -->
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
                 <label><b>Patient Name</b></label>
@@ -132,12 +139,6 @@
             </div>
         </form>
         <?php
-            // if($nameErr == "" && $genderErr == "" && $dobErr == "" && $roomErr == "") {
-
-
-            // } else {
-                
-            // }
         ?>
     </div>
     <div id="Footer">

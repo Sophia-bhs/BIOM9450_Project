@@ -23,21 +23,21 @@
             Patient Med Administration
         </h1>
     </div>
-
     <div id="Naviagation">
         <?php
             include('nav_bar.php');
         ?>
     </div>
     <?php
-        // define variables to empty values and defalt values
-        $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
+        // Setup datebase connection
+        $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
         if (!$conn) {
             odbc_close($conn);
             exit("Connection Failed: ".odbc_errormsg());
         }
+        // Define variables to empty values and default values
         $patientName = $patientID = $medStatus = $dietStatus = $medAdminID = $dietAdminID = "";
-        
+        // Let default patient be the first patient in database alphabetically
         $sql = "SELECT TOP 1 ID, PatientName FROM Patient ORDER BY PatientName";
         $rs  = odbc_exec($conn, $sql);
         while ($row = odbc_fetch_array($rs)) {
@@ -49,6 +49,7 @@
         $pracID = $_SESSION['PracID'];
         $pracName = $_SESSION['PracName'];
         $admTime = date('H:i:s');
+        // Update page with searched data, patient and round
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {  
             // Store selected date, patient and round number
             $_SESSION['patientName'] = $patientName = $_POST["patientName"];  
@@ -60,12 +61,14 @@
                 $patientID = $row['ID'];
             }
             $_SESSION['patientID'] = $patientID;
+        // Store key values into session
         } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Read selected date, patient and round number
             $patientName = $_SESSION["patientName"];  
             $chosenDate = $_SESSION["selectedDate"];
             $chosenRound = $_SESSION["roundNumber"];
             $patientID = $_SESSION["patientID"];
+            // Store updated medication/diet diespensing data for later use
             if (isset($_POST['medEdit'])) {
                 $medAdminID = $_POST["medAdminID"];  
                 $medStatus = $_POST["medStatus"];  
@@ -74,32 +77,33 @@
                 $dietStatus = $_POST["dietStatus"];  
             }  
         } 
-    ?>   
+    ?>
     <div id="wrapper">
         <div id="filter">
             <h1> Home </h1> 
+            <!-- Home page date, patient, round selection form -->
             <form id="chooseDate" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <input type="date" name="selectedDate" min='2022-01-01' max='2025-12-31' value="<?php echo date('Y-m-d', strtotime($chosenDate)); ?>">
                 <!-- Patient name -->
                 <label for="patientName">Patient Name:</label>
                 <select name="patientName" id="patientName">
                 <?php 
+                    // List of patient names
                     $sql = "SELECT ID, PatientName FROM Patient ORDER BY PatientName";
                     $rs  = odbc_exec($conn, $sql);
-                    // $sql = "SELECT PatientName FROM Patient INNER JOIN PracPatient ON Patient.ID = PracPatient.PatientID WHERE PractitionerID = $pracID ORDER BY PatientName";
-                    // $caredPatient  = odbc_exec($conn, $sql);
-                    $firstPatient = true;
+
+                    $firstPatient = true; // Default selection handle
                     while ($row = odbc_fetch_array($rs)) {
                         $formValue = "";
                         $pID = $row['ID'];
                         $sql = "SELECT * FROM PracPatient WHERE PractitionerID = $pracID AND PatientID = $pID";
                         $caredPatient  = odbc_exec($conn, $sql);
+                        // Display cared patient with *
                         if (odbc_fetch_row($caredPatient)) {
                             $formValue = $row['PatientName']."*";
                         } else {
                             $formValue = $row['PatientName'];
                         }
-
                         if (isset($patientName) && $patientName == $row['PatientName']) {
                             echo "<option value='".$row['PatientName']."' selected>".$formValue."</option>";
                         } else if (!isset($patientName) && $firstPatient == true) {
@@ -111,8 +115,7 @@
                     }
                 ?>        
                 </select>
-                
-                <!-- Round number -->
+                <!-- Round number selection -->
                 <label for="roundNumber">Round Number:</label>
                 <select name="roundNumber" id="roundNumber">
                     <option value="1" <?php if ($chosenRound=="1") echo "selected";?>>1</option>
@@ -122,23 +125,20 @@
                 <input type="submit" name="search" value="OK">
             </form>
         </div>
-
+        <!-- Patient information box -->
         <div id="extra">
-            <p><strong>Patient Info</strong></p>
-            <!-- <h3><img src="stickman.jpg" alt="Patient Image" width="150" height="200"></h3> -->
+            <h2><strong>&nbspPatient Info</strong></h2>
             <ul>
                 <?php
                     if (!$conn) {
                         odbc_close($conn);
                         exit("Connection Failed: ".odbc_errormsg());
                     }
-                    echo odbc_errormsg($conn);
                     $sql = "SELECT * FROM Patient where ID = $patientID";
                     $rs  = odbc_exec($conn,$sql);  
-                    echo odbc_errormsg($conn);
-
+                    // Display patient data
                     while($row = odbc_fetch_array($rs)) {
-                        echo "<h3><img src=" .$row['Picture']. " alt=\"Patient Image\" width=\"150\" height=\"200\"></h3>";
+                        echo "<img src=" .$row['Picture']. " alt=\"Patient Image\" width=\"150\" height=\"200\">";
                         echo "<li>" . $row['PatientName']. "</li>";
                         echo "<li>ID: " . $row['ID']. "</li>";
                         echo "<li>Age: " . $row['Age']. "</li>";
@@ -147,12 +147,14 @@
                         echo "<li>Room Number: " . $row['RoomNumber']. "</li>";
                     }
                 ?>
+                <!-- Edit patient info -->
+                <li>
+                    <form id="editInfo" action="edit_info.php" method="post">
+                        <input type="hidden" name="patientID" value="<?php echo $patientID; ?>">
+                        <input type="submit" name="editInfo" value="Edit">
+                    </form>
+                </li>
             </ul>
-            <form id="editInfo" action="edit_info.php" method="post">
-                <input type="hidden" name="patientID" value="<?php echo $patientID; ?>">
-                <input type="submit" name="editInfo" value="Edit">
-                
-            </form>
         </div>
 
         <div id="content">
@@ -185,12 +187,12 @@
                     odbc_close($conn);
                     exit("Connection Failed: ".odbc_errormsg());
                 }
-                //Medication
+                // Medication Administration display
                 $sql = "SELECT * FROM MedAdministration 
                     WHERE PatientID = $patientID 
                     AND Round = $chosenRound AND MedDate = #$chosenDate#";
                 $rs  = odbc_exec($conn, $sql);
-
+                // Format table
                 echo "<h2>Medication Administration:</h2>"; 
                 echo "<table class='home-styled-table'>
                 <colgroup>
@@ -222,6 +224,7 @@
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
                     echo "<td>" . $patientName . "</td>";
+                    // Display Practitioner name if dispensed
                     if (isset($row['PractitionerID'])) {
                         $pID = $row['PractitionerID'];
                         $sql = "SELECT Name FROM Practitioner WHERE ID = $pID";
@@ -232,6 +235,7 @@
                     } else {
                         echo "<td>-</td>";
                     }
+                    // Display Medication information
                     $medID = $row['MedID'];
                     $sql = "SELECT MedName, Dosage, Route FROM Medication WHERE ID = $medID";
                     $medNameQ  = odbc_exec($conn, $sql);
@@ -242,12 +246,14 @@
                     }
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('d/m/Y', strtotime($row['MedDate'])) . "</td>";
+                    // Display dispense time if dispensed
                     if (isset($row['MedTime'])) {
                         $time = explode(' ', $row['MedTime']);
                         echo "<td>" . $time[1] . "</td>";
                     } else {
                         echo "<td>-</td>";
                     }
+                    // Ask the user to update the administration status if not dispensed
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
@@ -268,12 +274,12 @@
                 echo "</tbody>";
                 echo "</table>";
             
-                //Diet
+                // Diet Regime display and update
                 $sql = "SELECT * FROM DietAdministration 
                     WHERE PatientID = $patientID 
                     AND Round = $chosenRound AND DietDate = #$chosenDate#";
                 $rs  = odbc_exec($conn, $sql);
-                echo odbc_errormsg($conn);
+                // Format table
                 echo "<h2>Diet Administration:</h2>"; 
                 echo "<table class='home-styled-table'>
                 <colgroup>
@@ -302,6 +308,7 @@
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
                     echo "<td>" . $patientName . "</td>";
+                    // Display Practitioner name if dispensed
                     if (isset($row['PractitionerID'])) {
                         $pID = $row['PractitionerID'];
                         $sql = "SELECT Name FROM Practitioner WHERE ID = $pID";
@@ -315,19 +322,21 @@
                     $dietID = $row['DietID'];
                     $sql = "SELECT DietName, [Amount/Day] FROM Diet WHERE ID = $dietID";
                     $dietNameQ  = odbc_exec($conn, $sql);
+                    // Display Diet information
                     while($rowDiet = odbc_fetch_array($dietNameQ)) {
                         echo "<td>" . $rowDiet['DietName'] . "</td>";
                         echo "<td>" . $rowDiet['Amount/Day'] . "</td>";
                     }
-                    // echo "<td>" . $row['DietID'] . "</td>";
                     echo "<td>" . $row['Round'] . "</td>";
                     echo "<td>" . date('d/m/Y', strtotime($row['DietDate'])) . "</td>";
+                    // Display dispense time if dispensed
                     if (isset($row['DietTime'])) {
                         $time = explode(' ', $row['DietTime']);
                         echo "<td>" . $time[1] . "</td>";
                     } else {
                         echo "<td>-</td>";
                     }
+                    // Ask the user to update the administration status if not dispensed
                     if (isset($row['Status'])) {
                         echo "<td>" . $row['Status'] . "</td>";
                     } else {
@@ -348,9 +357,6 @@
                 echo "</table>";
             ?>  
         </div>
-
-
-        
     </div>
     <div id="Footer">
         <?php

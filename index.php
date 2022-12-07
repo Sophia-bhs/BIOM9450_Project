@@ -9,12 +9,10 @@
 <center>
     <h1> Medication and Diet Regime Management System </h1>
     <body bgcolor="#E7FBFC">
-        <div>
-            <h2>
-                Login
-            </h2>
-        </div>
-        
+        <h2>
+            Login
+        </h2>
+        <!-- Login form -->
         <form action="login.php" method="POST">
             <div class="container">
                 <label><b>Email</b></label>
