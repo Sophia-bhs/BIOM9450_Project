@@ -25,8 +25,8 @@
         <?php
             // ID of Patient selected
             $id = (int) $_GET['id'];
-            // Establish odbc connection
-            $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
+            // Establish odbc connection            
+            $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
             if (!$conn) {
                 odbc_close($conn);
                 exit("Connection Failed: ".odbc_errormsg());
@@ -34,8 +34,16 @@
             // Fetch and display detailed diet information in a table
             $sql = "SELECT * FROM Diet where ID = $id";
             $rs  = odbc_exec($conn,$sql);  
-
-            echo "<table class='styled-table'>
+            echo odbc_errormsg($conn);
+            echo "<table class='details-styled-table'>
+            <colgroup>
+                <col span='1' style='width: 7%;'>
+                <col span='1' style='width: 20%;'>
+                <col span='1' style='width: 13%;'>
+                <col span='1' style='width: 20%;'>
+                <col span='1' style='width: 20%;'>
+                <col span='1' style='width: 20%;'>
+            </colgroup>
             <tr>
             <th>ID</th>
             <th>Diet Name</th>

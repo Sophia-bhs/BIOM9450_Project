@@ -16,46 +16,6 @@ table, th, td {
 	padding-left: 20px;
 }
 
-.styled-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-.styled-table thead tr {
-    background-color: #981700;
-    color: #ffffff;
-    text-align: left;
-}
-
-.styled-table th,
-.styled-table td {
-    padding: 12px 15px;
-}
-
-.styled-table tbody tr {
-    border-bottom: 1px solid #4389aa;
-}
-
-.styled-table tbody tr {
-    background-color: #ebebeb00;
-}
-
-.styled-table tr:first-child{
-    background:rgb(177, 177, 196);
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #ffffff;
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-
 .linkColor{
 	color:#002fff;
 }
@@ -75,4 +35,172 @@ table, th, td {
 div#wrap_list h1 {
 	margin-bottom: 30px;
 	margin-left: 20px;
+}
+
+.home-styled-table {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 80%;
+}
+
+.home-styled-table thead tr {
+    background-color: #981700;
+    color: #ffffff;
+    text-align: left;
+}
+
+.home-styled-table th,
+.home-styled-table td {
+    padding: 12px 15px;
+}
+
+.home-styled-table tbody tr {
+    border-bottom: 1px solid #4389aa;
+}
+
+.home-styled-table tbody tr {
+    background-color: #ebebeb00;
+}
+
+.home-styled-table tr:first-child{
+    background:rgb(177, 177, 196);
+}
+
+.home-styled-table tbody tr:nth-of-type(even) {
+    background-color: #ffffff;
+}
+
+.home-styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.list-styled-table {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 30%;
+}
+
+.list-styled-table thead tr {
+    background-color: #981700;
+    color: #ffffff;
+    text-align: left;
+}
+
+.list-styled-table th,
+.list-styled-table td {
+    padding: 12px 15px;
+}
+
+.list-styled-table tbody tr {
+    border-bottom: 1px solid #4389aa;
+}
+
+.list-styled-table tbody tr {
+    background-color: #ebebeb00;
+}
+
+.list-styled-table tr:first-child{
+    background:rgb(177, 177, 196);
+}
+
+.list-styled-table tbody tr:nth-of-type(even) {
+    background-color: #ffffff;
+}
+
+.list-styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.summary-styled-table {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 30%;
+}
+
+.summary-styled-table thead tr {
+    background-color: #981700;
+    color: #ffffff;
+    text-align: left;
+}
+
+.summary-styled-table th,
+.summary-styled-table td {
+    padding: 12px 15px;
+}
+
+.summary-styled-table tbody tr {
+    border-bottom: 1px solid #4389aa;
+}
+
+.summary-styled-table tbody tr {
+    background-color: #ebebeb00;
+}
+
+.summary-styled-table tr:first-child{
+    background:rgb(177, 177, 196);
+}
+
+.summary-styled-table tbody tr:nth-of-type(even) {
+    background-color: #ffffff;
+}
+
+.summary-styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.details-styled-table {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 50%;
+}
+
+.details-styled-table thead tr {
+    background-color: #981700;
+    color: #ffffff;
+    text-align: left;
+}
+
+.details-styled-table th,
+.details-styled-table td {
+    padding: 12px 15px;
+}
+
+.details-styled-table tbody tr {
+    border-bottom: 1px solid #4389aa;
+}
+
+.details-styled-table tbody tr {
+    background-color: #ebebeb00;
+}
+
+.details-styled-table tr:first-child{
+    background:rgb(177, 177, 196);
+}
+
+.details-styled-table tbody tr:nth-of-type(even) {
+    background-color: #ffffff;
+}
+
+.details-styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
 }

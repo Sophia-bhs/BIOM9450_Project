@@ -7,9 +7,16 @@ div#wrapper {
 }
 
 div#content {
+<<<<<<< HEAD
     height: 100%;
     width: 78%;
     float: right;
+=======
+    margin-left: 300px;
+    height: 100%;
+    width: 88%;
+    /* float: right; */
+>>>>>>> main
 }
 
 div#extra {
