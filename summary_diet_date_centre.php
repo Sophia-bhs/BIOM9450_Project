@@ -9,6 +9,7 @@
 </head>
 
 <?php
+    // Organise ODBC result into table values
     function ODBC_Results_Data_Diet($res, $sTable, $sRow){
         $cFields = odbc_num_fields($res);
         $strTable = "<table class='summary-styled-table' $sTable ><tr>"; 
@@ -59,13 +60,13 @@
         </h1>
         <div id="wrap_list">
             <?php  
-                // define variables to empty values and defalt values
+                // define variables to empty values and default values
                 $placeholder='-';
                 $patientName = "ALL";
                 $inputDate = $today = date("Y/m/d");
                 $date = date_create($today);
                 $patientNameDiet = "ALL";
-                $conn = odbc_connect('z5209691','' ,'' ,SQL_CUR_USE_ODBC); 
+                $conn = odbc_connect('z5262083','' ,'' ,SQL_CUR_USE_ODBC); 
                 if (!$conn) {
                     odbc_close($conn);
                     exit("Connection Failed: ".odbc_errormsg());
@@ -80,6 +81,7 @@
                     $inputDate = $_SESSION["centreDate"];
                     $patientNameDiet = $_SESSION["patientNameDiet"];  
                 }
+                // Calculate dates for a week with centered date selected or by default
                 $date1 = clone date_sub($date, date_interval_create_from_date_string("3 days"));
                 $date2 = clone date_add($date, date_interval_create_from_date_string("1 days"));
                 $date3 = clone date_add($date, date_interval_create_from_date_string("1 days"));
@@ -102,6 +104,7 @@
                     <div class="grid-item">
                         <select name="patientNameDiet" id="patientNameDiet">
                             <option value='ALL' selected> ALL </option>
+                            <!-- Choose from patient list -->
                             <?php 
                                 $patientNames = "SELECT PatientName FROM Patient ORDER BY PatientName";
                                 $patientNamesResult  = odbc_exec($conn, $patientNames);
@@ -125,6 +128,7 @@
                     <div class="grid-item">
                         <select name="pracName" id="pracName">
                             <option value='ALL' selected> ALL </option>
+                            <!-- Choose from practitioner list -->
                             <?php 
                                 $pracNames = "SELECT Name FROM Practitioner ORDER BY Name";
                                 $pracNamesResult  = odbc_exec($conn, $pracNames);
@@ -150,6 +154,7 @@
             </form>
             <div style="overflow-x:auto;">
                 <?php
+                    // Format date
                     $date1Name = date_format($date1,"d/m/Y");
                     $date2Name = date_format($date2,"d/m/Y");
                     $date3Name = date_format($date3,"d/m/Y");
