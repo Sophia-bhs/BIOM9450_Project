@@ -7,16 +7,9 @@ div#wrapper {
 }
 
 div#content {
-<<<<<<< HEAD
+    margin-left: 18%;
     height: 100%;
-    width: 78%;
-    float: right;
-=======
-    margin-left: 300px;
-    height: 100%;
-    width: 88%;
-    /* float: right; */
->>>>>>> main
+    width: 80%;
 }
 
 div#extra {
@@ -26,6 +19,8 @@ div#extra {
     margin-bottom: 100px;
     width: 10%;
 	min-width: 250px;
+    height: 100%;
+    margin-left: 1%;
 }
 
 div#filter {

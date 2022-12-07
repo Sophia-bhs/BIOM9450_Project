@@ -124,7 +124,7 @@
         </div>
 
         <div id="extra">
-            <h2><strong>Patient Info</strong></h2>
+            <h2><strong>&nbspPatient Info</strong></h2>
             <ul>
                 <?php
                     if (!$conn) {
